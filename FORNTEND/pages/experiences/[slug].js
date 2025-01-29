@@ -1,4 +1,4 @@
-// pages/blogs/[slug].js
+// pages/experiences/[slug].js
 
 import { SlCalender } from "react-icons/sl";
 import { CiRead } from "react-icons/ci";
@@ -16,16 +16,16 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import axios from "axios";
 
-const BlogPage = () => {
+const ExperiencePage = () => {
    
     return (
         <>
         <Head>
-            <title>blog url</title>
+            <title>experience url</title>
         </Head>
            
         </>
     );
 };
 
-export default BlogPage;
+export default ExperiencePage;

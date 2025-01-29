@@ -61,8 +61,8 @@ export default function Home() {
       
       </section>
 
-      {/* Recent Blogs */}
-      <section className="recentblogs">
+      {/* Recent Experiences */}
+      <section className="recentexperiences">
        
       </section>
 

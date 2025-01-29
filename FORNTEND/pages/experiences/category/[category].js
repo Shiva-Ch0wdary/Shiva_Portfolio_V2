@@ -6,9 +6,9 @@ export default function Category() {
 
     return <>
         <Head>
-            <title>Blog category page</title>
+            <title>Experience category page</title>
         </Head>
-        <div className="blogcategory">
+        <div className="experiencecategory">
             
         </div>
     </>
