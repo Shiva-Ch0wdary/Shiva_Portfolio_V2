@@ -16,7 +16,16 @@ export default function experiences() {
             <title>Experiences</title>
         </Head>
         <div className="experiencepage">
-            
+            <div className="tophero">
+                <div className="container">
+                    <div className="toptitle">
+                        <div className="toptitlecont flex">
+                            <h1>Welcome to <span>Shiva's Experiences</span></h1>
+                            <p>I break down complex user experiences problems to create integritiy focused solutions that connect billions of people</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </>
 }

@@ -8,6 +8,10 @@ import { GoArrowUpRight } from "react-icons/go";
 import { useEffect, useState } from "react";
 import Spinner from "@/components/Spinner";
 import Category from "./experiences/category/[category]";
+import { LuMedal } from "react-icons/lu";
+import { PiGraduationCapFill } from "react-icons/pi";
+import experiences from "./experiences";
+import { FaCalendarDays } from "react-icons/fa6";
 
 
 export default function Home() {
@@ -53,12 +57,15 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const [projectResponse, experiencesResponse] = await Promise.all([
-          fetch('/api/projects')
+          fetch('/api/projects'),
+          fetch('/api/experiences')
         ])
 
         const projectData = await projectResponse.json();
+        const experiencesData = await experiencesResponse.json();
 
         setAlldata(projectData);
+        setAllwork(experiencesData);
 
 
       } catch (error) {
@@ -92,7 +99,19 @@ export default function Home() {
     setselectedCategory(category);
   }
 
+  const formaDate = (date) => {
+    if (!date || isNaN(date)) {
+      return '';
+    }
 
+    const options = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour12: true
+    };
+    return new Intl.DateTimeFormat('en-Us', options).format(date);
+  }
 
   return (
     <>
@@ -227,17 +246,130 @@ export default function Home() {
 
       {/* Experience study */}
       <section className="exstudy">
+        <div className="container flex flex-left flex-sb">
+          <div className="experience">
+            <div className="experience_title flex gap-1">
+              <LuMedal />
+              <h2>My Education</h2>
+            </div>
+            <div className="exper_cards">
+              <div className="exper_card">
+                <span>2020-2024</span>
+                <h3>IIIT Sri City</h3>
+                <p>B.Tech in Computer Science</p>
+              </div>
+              <div className="exper_card">
+                <span>2018-2020</span>
+                <h3>Resonance Jr College</h3>
+                <p>Intermediate</p>
+              </div>
+              <div className="exper_card">
+                <span>2017-2018</span>
+                <h3>Abhinav High School</h3>
+                <p>Secondary Board Of Education</p>
+              </div>
+            </div>
+          </div>
+          <div className="education">
+            <div className="experience_title flex gap-1">
+              <PiGraduationCapFill />
+              <h2>My Education 2</h2>
+            </div>
+            <div className="exper_cards">
+              <div className="exper_card">
+                <span>2020-2024</span>
+                <h3>IIIT Sri City</h3>
+                <p>B.Tech in Computer Science</p>
+              </div>
+              <div className="exper_card">
+                <span>2018-2020</span>
+                <h3>Resonance Jr College</h3>
+                <p>Intermediate</p>
+              </div>
+              <div className="exper_card">
+                <span>2017-2018</span>
+                <h3>Abhinav High School</h3>
+                <p>Secondary Board Of Education</p>
+              </div>
+            </div>
 
+          </div>
+        </div>
       </section>
 
       {/* My Skills */}
       <section className="myskills">
-
+        <div className="container">
+          <div className="myskills_title">
+            <h2>My Skills</h2>
+            <p>We put ideas and thoughts in the form of a unique web projects that inspire you and your customers.</p>
+          </div>
+          <div className="myskils_cards">
+            <div className="mys_card">
+              <div className="mys_inner">
+                <img src="/img/python.svg" alt="python" />
+                <h3>99%</h3>
+              </div>
+              <p className="text-center" >Python</p>
+            </div>
+            <div className="mys_card">
+              <div className="mys_inner">
+                <img src="/img/firebase.svg" alt="firebase" />
+                <h3>80%</h3>
+              </div>
+              <p className="text-center" >Firebase</p>
+            </div>
+            <div className="mys_card">
+              <div className="mys_inner">
+                <img src="/img/redux.svg" alt="redux" />
+                <h3>70%</h3>
+              </div>
+              <p className="text-center" >Redux</p>
+            </div>
+            <div className="mys_card">
+              <div className="mys_inner">
+                <img src="/img/mongodb.svg" alt="mongodb" />
+                <h3>90%</h3>
+              </div>
+              <p className="text-center" >Mongo DB</p>
+            </div>
+            <div className="mys_card">
+              <div className="mys_inner">
+                <img src="/img/react.svg" alt="react" />
+                <h3>100%</h3>
+              </div>
+              <p className="text-center" >React</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Recent Experiences */}
       <section className="recentexperiences">
-
+        <div className="container">
+          <div className="myskills_title">
+            <h2>Recent Experiences</h2>
+            <p>We put ideas and thoughts in the form of a unique web projects that inspire you and your customers.</p>
+          </div>
+          <div className="recent_experiences">
+            {allwork.slice(0, 3).map((experience) => {
+              return <Link href={`/experiences/${experience.slug}`} key={experience._id} className="re_experience">
+                <div className="re_experienceimg">
+                  <img src={experience.images[0] || '/img/noimage.png'} alt={experience.title} />
+                  <span>{experience.experiencecategory[0]}</span>
+                </div>
+                <div className="re_experienceinfo">
+                  <div className="re_topdate flex gap-1">
+                    <div className="res_date">
+                      <FaCalendarDays /> <span>{formaDate(new Date(experience.createdAt))}</span>
+                    </div>
+                  </div>
+                  <h2>{experience.title}</h2>
+                </div>
+              </Link>
+            })}
+          </div>
+        </div>
       </section>
 
     </>

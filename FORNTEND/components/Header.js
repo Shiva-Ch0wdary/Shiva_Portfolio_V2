@@ -124,7 +124,7 @@ export default function Header() {
                             <Link href='/contact' onClick={() => handleLinkClick('/contact')} className={activeLink === '/contact' ? 'active' : ''}>Contact</Link>
                         </li>
                     </ul>
-                    <p>Copyright &copy; 2024 | shiva.in</p>
+                    <p>Copyright &copy; 2024 | ShivaChowdary.in</p>
                 </div>
             </nav>
         </header>

@@ -1592,15 +1592,16 @@ header.sticky {
 .recent_experiences {
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* gap: 2rem; */
+    align-items: flex-start; /* Align items to the top */
+    justify-content: center; /* Center items horizontally */
+    gap: 5rem; /* Reduce the gap between the items */
+    flex-wrap: wrap; /* Ensure items wrap to the next row if necessary */
 }
 
 .re_experience {
     position: relative;
-    max-width: 400px;
-    height: 400px;
+    max-width: 400px; /* Adjust width to reduce excessive space */
+    height: 400px; /* Adjust height to match new width */
     border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
