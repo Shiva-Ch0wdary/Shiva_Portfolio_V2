@@ -150,19 +150,10 @@ export default function Project(
                 <select onChange={(e) => setprojectcategory(Array.from(e.target.selectedOptions, option => option.value))} value={projectcategory}
                     name="category" id="category" multiple >
                     <option value="Software developer">Software developer</option>
-                    <option value="Node js">Node Js</option>
-                    <option value="React js">React Js</option>
-                    <option value="Java">Java</option>
-                    <option value="Python">Python</option>
-                    <option value="Database">Database</option>
-                    <option value="Flutter Dev">Flutter Dev</option>
-                    <option value="Deployment">Deployment</option>
-                    <option value="HTML CSS">HTML CSS</option>
-                    <option value="Next Js">Next Js</option>
-                    <option value="Unity Developer">Unity Developer</option>
-                    <option value="C Sharp">C Sharp</option>
-                    <option value="Mongo DB">Mongo DB</option>
-                    <option value="C">C</option>
+                    <option value="App Development">App Development</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="E-Commerce Site">E-Commerce Site</option>
+                    <option value="Game Developement">Game Developement</option>
                 </select>
             </div>
             <div className="w-100 flex flex-col flex-left mb-2">
