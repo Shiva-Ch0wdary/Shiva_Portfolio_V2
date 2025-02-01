@@ -1927,14 +1927,30 @@ header.sticky {
     bottom: 0;
     left: 0;
     padding: 30px;
+    width: 100%;
+    backdrop-filter: blur(5px) ;
+    z-index: 1;
 }
 
-.tegs {
+.fpostinfo::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.3; 
+    z-index: -1;
+  }
+
+  .tegs {
     display: flex;
     gap: 12px;
     margin-bottom: 0.75rem;
     text-transform: capitalize;
-}
+    flex-wrap: wrap; /* Allow tags to wrap if they overflow */
+  }
 
 .tegs a,
 .tegs div {
@@ -1981,14 +1997,26 @@ header.sticky {
     margin-right: 10px;
 }
 
-.ai span {
+/* .ai span {
+    background: orange;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: yellow; 
+    border-radius: 50%;
+    margin-right: 10px;
+} */
+
+.ai span::before {
+    content: '';
     background: orange;
     display: inline-block;
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    margin-right: 10px;
-}
+    background-color: yellow; /* Set your desired dot color */
+    margin-right: 8px;
+  }
 
 .apps span {
     background: #6b5be1;
@@ -2179,6 +2207,7 @@ header.sticky {
 
 .experiencespaginationbtn {
     gap: 1rem;
+    padding-bottom: 5rem;
 }
 
 .experiencespaginationbtn button {
@@ -2214,15 +2243,18 @@ header.sticky {
 
 .populartegssec {
     margin-top: 5rem;
+
 }
 
 .poputegs {
-    margin-top: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+
 }
 
 .pteg {

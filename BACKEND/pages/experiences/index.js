@@ -109,7 +109,7 @@ export default function Experience() {
                                     {number}
                                 </button>
                             ))}
-                            <button onClick={() => paginate(currentPage + 1)} disabled={currentPage.length < perPage}>Next</button>
+                            <button onClick={() => paginate(currentPage + 1)} disabled={currentExperiences.length < perPage}>Next</button>
                         </div>
                     )
                     }
