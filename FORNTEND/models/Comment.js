@@ -6,10 +6,10 @@ const CommentSchema = new Schema({
     title: { type: String },
     contentpera: { type: String },
     maincomment: [{ type: Boolean }],
-    createdAt: {type: DataTransfer, default: Date.now },
+    createdAt: { type: Date, default: Date.now },
     experience: { type: Schema.Types.ObjectId, ref: 'Experience', required: true},
     parent: { type: Schema.Types.ObjectId, ref: 'Comment' },
-    childern: { type: Schema.Types.ObjectId, ref: 'Comment' },
+    childern: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     parentName: {type: String },
 });
 

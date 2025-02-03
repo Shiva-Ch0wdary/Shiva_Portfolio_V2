@@ -44,8 +44,10 @@ export default function gallery() {
                             {alldata.map((photo) => {
                                 return <div className="image-item">
                                     <img src={photo.images[0]} alt="" />
-                                    <h2>{photo.title}</h2>
-                                    <p>By Shiva</p>
+                                    <div className="galleryimgiteminfo">
+                                        <h2>{photo.title}</h2>
+                                        <p>By Shiva</p>
+                                    </div>
                                 </div>
                             })}
                         </>}
