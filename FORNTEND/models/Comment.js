@@ -9,7 +9,7 @@ const CommentSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     experience: { type: Schema.Types.ObjectId, ref: 'Experience', required: true},
     parent: { type: Schema.Types.ObjectId, ref: 'Comment' },
-    childern: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    children: [{ type: Schema.Types.ObjectId, ref: 'Comment' }], // Initialize correctly
     parentName: {type: String },
 });
 

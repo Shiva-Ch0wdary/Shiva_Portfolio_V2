@@ -3,9 +3,7 @@ import { Experience } from '@/models/Experience';
 import { Comment } from '@/models/Comment';
 
 export default async function handler(req, res) {
-
     const { slug } = req.query;
-
     await mongooseConnect();
 
     if (req.method === 'GET') {
@@ -13,74 +11,87 @@ export default async function handler(req, res) {
             const experience = await Experience.findOne({ slug });
 
             if (!experience) {
-                return res.status(404).json({ message: "Experience Not found" })
+                return res.status(404).json({ message: "Experience Not Found" });
             }
 
-            const comments = await Comment.find({ experience: experience._id }).sort({ createdAt: -1 });
+            // Fetch comments and populate parent-child relationships
+            const comments = await Comment.find({ experience: experience._id })
+                .sort({ createdAt: -1 })
+                .lean();
 
-            res.status(200).json({ experience, comments })
+            const commentMap = new Map();
+
+            comments.forEach(comment => {
+                comment.children = []; // Ensure children are initialized
+                commentMap.set(comment._id.toString(), comment);
+            });
+
+            comments.forEach(comment => {
+                if (comment.parent) {
+                    const parentComment = commentMap.get(comment.parent.toString());
+                    if (parentComment) {
+                        parentComment.children.push(comment);
+                    }
+                }
+            });
+
+            // Get only top-level comments (comments without a parent)
+            const topLevelComments = comments.filter(comment => !comment.parent);
+
+            res.status(200).json({ experience, comments: topLevelComments });
 
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: 'server error' })
+            res.status(500).json({ message: 'Server error' });
         }
-    } else if (req.method === 'POST') {
+    } 
+    else if (req.method === 'POST') {
         try {
-            const { name, email, title, contentpera, maincomment, parent } = req.body;
+            const { name, email, title, contentpera, parent } = req.body;
 
             const experience = await Experience.findOne({ slug });
 
             if (!experience) {
-                return res.status(404).json({ message: "Experience Not Found" })
+                return res.status(404).json({ message: "Experience Not Found" });
             }
+
+            const newComment = new Comment({
+                name,
+                email,
+                title,
+                contentpera,
+                maincomment: parent ? false : true, // False if it's a reply
+                experience: experience._id,
+                parent: parent || null, // Set parent if replying
+                parentName: parent ? (await Comment.findById(parent)).name : null
+            });
+
+            await newComment.save();
 
             if (parent) {
                 const parentComment = await Comment.findById(parent);
-
                 if (!parentComment) {
-                    return res.status(404).json({ message: 'parent comment not found' })
+                    return res.status(404).json({ message: 'Parent comment not found' });
                 }
 
-                const newComment = new Comment({
-                    name,
-                    email,
-                    title,
-                    contentpera,
-                    maincomment,
-                    parent: parentComment._id,
-                    experience: experience._id,
-                    parentName: parentComment.name
-                })
-
-                await newComment.save();
-
-                parentComment.childern.push(newComment._id);
-
+                // Ensure the parent has a `children` array before pushing
+                parentComment.children = parentComment.children || [];
+                parentComment.children.push(newComment._id);
                 await parentComment.save();
-
-                res.status(201).json(newComment);
-            } else {
-                const newComment = new Comment({
-                    name,
-                    email,
-                    title,
-                    contentpera,
-                    maincomment,
-                    experience: experience._id,
-                });
-
-                await newComment.save();
-
-                res.status(201).json(newComment);
             }
+
+            // Fetch updated comments list to send back
+            const updatedComments = await Comment.find({ experience: experience._id }).sort({ createdAt: -1 });
+
+            res.status(201).json({ newComment, updatedComments });
 
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: 'server error' })
+            res.status(500).json({ message: 'Server error' });
         }
-    } else {
-        res.setHeader('Allow', ['Get', 'POST']);
-        res.status(405).end(`Method ${req.method} Not Allowed`)
+    } 
+    else {
+        res.setHeader('Allow', ['GET', 'POST']);
+        res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-
 }

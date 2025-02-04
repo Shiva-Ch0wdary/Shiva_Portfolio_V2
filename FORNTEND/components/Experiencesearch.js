@@ -15,13 +15,13 @@ const extractFirstParagraph = (markdown) => {
 
 export default function Experiencesearch(props) {
 
-    const { allwork } = useFetchData('/api/experiences');  // Assuming useFetchData returns an object with allwork and loading
+    const { alldata = [], loading } = useFetchData('/api/experiences');  // Assuming useFetchData returns an object with alldata and loading
 
     const [searchResult, setSearchResult] = useState(null);
     const [experiencetitle, setExperiencetitle] = useState('');  // experiencetitle should be initialized as a string
 
     // filter for published experiences required
-    const publishedData = allwork.filter(ab => ab.status === 'publish');
+    const publishedData = alldata.filter(ab => ab.status === 'publish');
 
     // Function to handle search
     useEffect(() => {
@@ -36,12 +36,13 @@ export default function Experiencesearch(props) {
 
         setSearchResult(filteredexperiences);  // setSearchResult should be used to update searchResult state
 
-    }, [experiencetitle, allwork]);  // Include allwork in dependencies to ensure useEffect updates when data changes
+    }, [experiencetitle, alldata]);  // Include alldata in dependencies to ensure useEffect updates when data changes
 
     const handleExperienceClick = () => {
         setExperiencetitle('');  // This clears the input field when a experience is clicked
     };
 
+    if (loading) return <p>Loading...</p>
 
     return <>
         <div className="searchexperiencefix">
