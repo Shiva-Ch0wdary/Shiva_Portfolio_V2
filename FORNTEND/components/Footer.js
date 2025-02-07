@@ -13,19 +13,20 @@ export default function Footer() {
                     <img src="/img/logo.png" alt="logo" />
                 </div>
                 <div className="ul flex gap-2">
-                    <li><Link href='/services'>Services</Link></li>
-                    <li><Link href='/services'>Works</Link></li>
-                    <li><Link href='/services'>Resume</Link></li>
-                    <li><Link href='/services'>Skills</Link></li>
+                    
+                    <li><Link href='/projects'>Projects</Link></li>
+                    <li><Link href='/gallery'>Gallery</Link></li>
+                    <li><Link href='/experiences'>Experiences</Link></li>
                     <li><Link href='/services'>Testimonials</Link></li>
                     <li><Link href='/contact'>Contact</Link></li>
+                    <li><Link href='/services'>Services</Link></li>
                 </div>
                 <ul className="hero_social">
-                    <li><a href="/" target="_blank"><FaTwitter /></a></li>
-                    <li><a href="/" target="_blank"><LiaBasketballBallSolid /></a></li>
-                    <li><a href="/" target="_blank"><GrLinkedinOption /></a></li>
-                    <li><a href="/" target="_blank"><FaGithub /></a></li>
-                    <li><a href="/" target="_blank"><FaDiscord /></a></li>
+                    <li><a href="/"><LiaBasketballBallSolid /></a></li>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/mandapudi-shiva-rama-krishna-588706204/"><GrLinkedinOption /></a></li>
+                    <li><a target="_blank" href="https://github.com/Shiva-Ch0wdary"><FaGithub /></a></li>
+                    <li><a target="_blank" href="https://discordapp.com/users/Shiva_Ram#5331"><FaDiscord /></a></li>
+                    <li><a target="_blank" href="https://x.com/Shiva_Mandepudi?t=NiSjxAeFQBU1fudyPRov6A&s=09"><FaTwitter /></a></li>
                 </ul>
                 <div className="copyrights">&copy; 2024 All Rights Reserved By <span>ShivaChowdary.in</span></div>
             </div>

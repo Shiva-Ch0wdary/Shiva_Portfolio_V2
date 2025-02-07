@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaPhoneVolume, FaTwitter } from "react-icons/fa6";
 import { GrLinkedin } from "react-icons/gr";
 import { MdAttachEmail } from "react-icons/md";
+import countries from "world-countries";
 
 export default function Contact() {
     const [name, setName] = useState('');
@@ -12,27 +13,27 @@ export default function Contact() {
     const [company, setCompany] = useState('');
     const [phone, setPhone] = useState('');
     const [country, setCountry] = useState('');
-    // Initialize project as an array for multiple selections
     const [project, setProject] = useState([]);
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [messageOk, setMessageOk] = useState('');
+  
 
     async function createProduct(ev) {
         ev.preventDefault();
         setMessageOk('Sending...');
 
-        // Convert the project array into a comma-separated string
-        const data = { 
-            name, 
-            lname, 
-            email, 
-            phone, 
-            company, 
-            country, 
-            project: project.join(', '), 
-            price, 
-            description 
+        
+        const data = {
+            name,
+            lname,
+            email,
+            phone,
+            company,
+            country,
+            project: project.join(', '),
+            price,
+            description
         };
 
         try {
@@ -79,7 +80,7 @@ export default function Contact() {
 
             <div className="contactpage" >
                 <div className="container">
-                    <div className="contactformp"data-aos="fade-up">
+                    <div className="contactformp" data-aos="fade-up">
                         <div className="leftcontp">
                             <h2>Get in touch</h2>
                             <h2>Let's talk about your project</h2>
@@ -139,64 +140,18 @@ export default function Contact() {
                                     <input type="email" value={email} onChange={ev => setEmail(ev.target.value)} placeholder="Email address" required />
                                     <input type="text" value={company} onChange={ev => setCompany(ev.target.value)} placeholder="Company name" />
                                     <input type="text" value={phone} onChange={ev => setPhone(ev.target.value)} placeholder="Phone number" required />
-                                    <select id="country" value={country} onChange={ev => setCountry(ev.target.value)} name="country">
+                                    <select
+                                        id="country"
+                                        value={country}
+                                        onChange={(ev) => setCountry(ev.target.value)}
+                                        name="country"
+                                    >
                                         <option value="">Select Country</option>
-                                        <option value="Afghanistan">Afghanistan</option>
-                                        <option value="Åland Islands">Åland Islands</option>
-                                        <option value="Albania">Albania</option>
-                                        <option value="Algeria">Algeria</option>
-                                        <option value="American Samoa">American Samoa</option>
-                                        <option value="Angola">Angola</option>
-                                        <option value="Anguilla">Anguilla</option>
-                                        <option value="Antarctica">Antarctica</option>
-                                        <option value="Antigua and Barbuda">Antigua and Barbuda</option>
-                                        <option value="Argentina">Argentina</option>
-                                        <option value="Armenia">Armenia</option>
-                                        <option value="Aruba">Aruba</option>
-                                        <option value="Australia">Australia</option>
-                                        <option value="Austria">Austria</option>
-                                        <option value="Azerbaijan">Azerbaijan</option>
-                                        <option value="Bahamas">Bahamas</option>
-                                        <option value="Bahrain">Bahrain</option>
-                                        <option value="Bangladesh">Bangladesh</option>
-                                        <option value="Barbados">Barbados</option>
-                                        <option value="Belarus">Belarus</option>
-                                        <option value="Belgium">Belgium</option>
-                                        <option value="Belize">Belize</option>
-                                        <option value="Benin">Benin</option>
-                                        <option value="Bermuda">Bermuda</option>
-                                        <option value="Bhutan">Bhutan</option>
-                                        <option value="Bolivia">Bolivia</option>
-                                        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-                                        <option value="Botswana">Botswana</option>
-                                        <option value="Bouvet Island">Bouvet Island</option>
-                                        <option value="Brazil">Brazil</option>
-                                        <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
-                                        <option value="Brunei Darussalam">Brunei Darussalam</option>
-                                        <option value="Bulgaria">Bulgaria</option>
-                                        <option value="Burkina Faso">Burkina Faso</option>
-                                        <option value="Burundi">Burundi</option>
-                                        <option value="Cambodia">Cambodia</option>
-                                        <option value="Cameroon">Cameroon</option>
-                                        <option value="Canada">Canada</option>
-                                        <option value="Cape Verde">Cape Verde</option>
-                                        <option value="Cayman Islands">Cayman Islands</option>
-                                        <option value="Central African Republic">Central African Republic</option>
-                                        <option value="Chad">Chad</option>
-                                        <option value="Chile">Chile</option>
-                                        <option value="China">China</option>
-                                        <option value="Christmas Island">Christmas Island</option>
-                                        <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
-                                        <option value="Colombia">Colombia</option>
-                                        <option value="Comoros">Comoros</option>
-                                        <option value="Congo">Congo</option>                               
-                                        <option value="Cook Islands">Cook Islands</option>
-                                        <option value="Costa Rica">Costa Rica</option>
-                                        <option value="Cote D'ivoire">Cote D'ivoire</option>
-                                        <option value="Croatia">Croatia</option>
-                                        <option value="Cuba">Cuba</option>
-                                        <option value="Cyprus">Cyprus</option>
-                                        <option value="India">India</option>
+                                        {countries.map((c) => (
+                                            <option key={c.cca2} value={c.name.common}>
+                                                {c.name.common}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div className="rightconttitle">

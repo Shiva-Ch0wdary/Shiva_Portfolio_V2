@@ -179,13 +179,13 @@ export default function Home() {
               </div>
               <div className="lead" data-aos='fade-up'>I break down complex user experiences problems to create integritiy focused solutions that connect billions of people</div>
               <div className="hero_btn_box"  data-aos='fade-up'>
-                <Link href='/' download={'/img/resume.pdf'} className="download_cv">Download CV <BiDownload /></Link>
+                <Link href='/img/resume.pdf' download className="download_cv">Download CV <BiDownload /></Link>
                 <ul className="hero_social">
-                  <li><a href="/"><FaTwitter /></a></li>
+                  <li><a target="_blank" href="https://x.com/Shiva_Mandepudi?t=NiSjxAeFQBU1fudyPRov6A&s=09"><FaTwitter /></a></li>
                   <li><a href="/"><LiaBasketballBallSolid /></a></li>
-                  <li><a href="/"><GrLinkedinOption /></a></li>
-                  <li><a href="/"><FaGithub /></a></li>
-                  <li><a href="/"><FaDiscord /></a></li>
+                  <li><a target="_blank" href="https://www.linkedin.com/in/mandapudi-shiva-rama-krishna-588706204/"><GrLinkedinOption /></a></li>
+                  <li><a target="_blank" href="https://github.com/Shiva-Ch0wdary"><FaGithub /></a></li>
+                  <li><a target="_blank" href="https://discordapp.com/users/Shiva_Ram#5331"><FaDiscord /></a></li>
                 </ul>
               </div>
             </div>

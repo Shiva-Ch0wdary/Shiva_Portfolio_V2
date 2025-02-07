@@ -26,7 +26,8 @@
     "react-syntax-highlighter": "^15.5.0",
     "remark-gfm": "^4.0.0",
     "swiper": "^11.1.4",
-    "typed.js": "^2.1.0"
+    "typed.js": "^2.1.0",
+    "world-countries": "^5.0.0"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
