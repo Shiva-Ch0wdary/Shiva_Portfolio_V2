@@ -850,6 +850,39 @@ header.sticky {
     color: var(--main-site-color);
 }
 
+/* Typed text container */
+.typed-text {
+    display: inline-block;
+    overflow: hidden;
+    /* Hide overflow to ensure typing effect */
+    white-space: nowrap;
+    /* Prevent text wrapping */
+    border-right: 2px solid #000;
+    /* Cursor effect */
+    animation: blink 0.5s step-end infinite;
+    /* Blinking cursor effect */
+}
+
+/* Typing animation */
+@keyframes typing {
+    from {
+        width: 0;
+        /* Start with no width */
+    }
+
+    to {
+        width: 100%;
+        /* End with full width */
+    }
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
 
 
 /* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
@@ -1592,16 +1625,22 @@ header.sticky {
 .recent_experiences {
     position: relative;
     display: flex;
-    align-items: flex-start; /* Align items to the top */
-    justify-content: center; /* Center items horizontally */
-    gap: 5rem; /* Reduce the gap between the items */
-    flex-wrap: wrap; /* Ensure items wrap to the next row if necessary */
+    align-items: flex-start;
+    /* Align items to the top */
+    justify-content: center;
+    /* Center items horizontally */
+    gap: 5rem;
+    /* Reduce the gap between the items */
+    flex-wrap: wrap;
+    /* Ensure items wrap to the next row if necessary */
 }
 
 .re_experience {
     position: relative;
-    max-width: 400px; /* Adjust width to reduce excessive space */
-    height: 400px; /* Adjust height to match new width */
+    max-width: 400px;
+    /* Adjust width to reduce excessive space */
+    height: 400px;
+    /* Adjust height to match new width */
     border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
@@ -1928,7 +1967,7 @@ header.sticky {
     left: 0;
     padding: 30px;
     width: 100%;
-    backdrop-filter: blur(5px) ;
+    backdrop-filter: blur(5px);
     z-index: 1;
 }
 
@@ -1940,17 +1979,18 @@ header.sticky {
     width: 100%;
     height: 100%;
     background-color: #000;
-    opacity: 0.3; 
+    opacity: 0.3;
     z-index: -1;
-  }
+}
 
-  .tegs {
+.tegs {
     display: flex;
     gap: 12px;
     margin-bottom: 0.75rem;
     text-transform: capitalize;
-    flex-wrap: wrap; /* Allow tags to wrap if they overflow */
-  }
+    flex-wrap: wrap;
+    /* Allow tags to wrap if they overflow */
+}
 
 .tegs a,
 .tegs div {
@@ -2014,9 +2054,10 @@ header.sticky {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: yellow; /* Set your desired dot color */
+    background-color: yellow;
+    /* Set your desired dot color */
     margin-right: 8px;
-  }
+}
 
 .apps span {
     background: #6b5be1;
@@ -3746,12 +3787,14 @@ header.sticky {
 .rightrecentp:hover h3 {
     color: #8750f7;
 }
+
 .rightrecentpost h4 {
     display: flex;
     align-items: center;
     gap: 5px;
 }
-.rightrecentpost h4 span{
+
+.rightrecentpost h4 span {
     background-color: #4600ae7c;
     color: #ffffffc2;
     padding: 8px;
@@ -4223,7 +4266,8 @@ header.sticky {
 }
 
 .children-comments {
-    margin-left: 20px; /* Indent replies */
+    margin-left: 20px;
+    /* Indent replies */
     /* border-left: 2px solid #8750f7;  */
     padding-left: 10px;
 }

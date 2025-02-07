@@ -26,6 +26,45 @@ export default function Home() {
     setActiveIndex(0);
   }
 
+
+  const words = ["Software Developer", "Game Developer", "UI Designer"]; // List of words
+  const typingSpeed = 100; // Speed of typing (in milliseconds per letter)
+  const delayBetweenWords = 1000; // Delay before starting the next word (in milliseconds)
+
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState(""); // Text being typed
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    let typingTimeout;
+
+    const handleTyping = () => {
+      const currentWord = words[currentWordIndex];
+      if (!isDeleting) {
+        // Typing letters
+        setDisplayedText((prev) => currentWord.substring(0, prev.length + 1));
+
+        if (displayedText === currentWord) {
+          // If the word is fully typed, wait and then start deleting
+          setTimeout(() => setIsDeleting(true), delayBetweenWords);
+        }
+      } else {
+        // Deleting letters
+        setDisplayedText((prev) => currentWord.substring(0, prev.length - 1));
+
+        if (displayedText === "") {
+          // If fully deleted, move to the next word
+          setIsDeleting(false);
+          setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+        }
+      }
+    };
+
+    typingTimeout = setTimeout(handleTyping, typingSpeed);
+
+    return () => clearTimeout(typingTimeout); // Cleanup timeout on unmount
+  }, [displayedText, isDeleting, currentWordIndex, words]);
+
   // services data
   const services = [
     {
@@ -132,13 +171,14 @@ export default function Home() {
         <div className="container">
           <div className="flex w-100">
             <div className="heroinfoleft">
-              <span className="hero_sb_title">I am Shiva</span>
-              <h1 className="hero_title">Web developer + <br /> <span className="typed-text">Game Developer</span></h1>
-              <div className="hero_img_box heroimgbox">
+              <span className="hero_sb_title" data-aos='fade-right'>I am Shiva</span>
+              <h1 className="hero_title" data-aos='fade-right'>Web Developer + <br /> <span className="typed-text">{displayedText}</span>
+              </h1>
+              <div className="hero_img_box heroimgbox" data-aos='flip-left' data-aos-easing='ease-out-cubic' data-aos-duration='2000'>
                 <img src="/img/me.jpg" alt="profile" />
               </div>
-              <div className="lead">I break down complex user experiences problems to create integritiy focused solutions that connect billions of people</div>
-              <div className="hero_btn_box">
+              <div className="lead" data-aos='fade-up'>I break down complex user experiences problems to create integritiy focused solutions that connect billions of people</div>
+              <div className="hero_btn_box"  data-aos='fade-up'>
                 <Link href='/' download={'/img/resume.pdf'} className="download_cv">Download CV <BiDownload /></Link>
                 <ul className="hero_social">
                   <li><a href="/"><FaTwitter /></a></li>
@@ -151,25 +191,25 @@ export default function Home() {
             </div>
 
             <div className="heroimageright">
-              <div className="hero_img_box">
+              <div className="hero_img_box" data-aos='flip-left' data-aos-easing='ease-out-cubic' data-aos-duration='2000'>
                 <img src="/img/me.png" alt="profile" />
               </div>
             </div>
           </div>
           <div className="funfect_area flex flex-sb">
-            <div className="funfect_item">
+            <div className="funfect_item" data-aos='fade-right'>
               <h3>1+</h3>
               <h4>Years Of <br /> Experience</h4>
             </div>
-            <div className="funfect_item">
+            <div className="funfect_item" data-aos='fade-right'>
               <h3>25+</h3>
               <h4>Projects <br /> Completed</h4>
             </div>
-            <div className="funfect_item">
+            <div className="funfect_item" data-aos='fade-left'>
               <h3>1</h3>
               <h4>Research <br /> Experience</h4>
             </div>
-            <div className="funfect_item">
+            <div className="funfect_item" data-aos='fade-left'>
               <h3>1</h3>
               <h4>OpenSource <br /> Library</h4>
             </div>
@@ -183,11 +223,11 @@ export default function Home() {
       {/* Services */}
       <section className="services">
         <div className="container">
-          <div className="services_titles">
+          <div className="services_titles"  data-aos='fade-up'>
             <h2>My Quality Services</h2>
             <p>We put ideas and thoughts in the form of a unique web projects that inspire you and your customers.</p>
           </div>
-          <div className="services_menu">
+          <div className="services_menu"  data-aos='fade-up'>
             {services.map((service, index) => (
               <div key={index} className={`services_item ${activeIndex === index ? 'sactive' : ''}`}
                 onMouseOver={() => handleHover(index)}
@@ -211,23 +251,22 @@ export default function Home() {
       {/* Projects */}
       <section className="projects">
         <div className="container">
-          <div className="project_titles">
+          <div className="project_titles"  data-aos='fade-up'>
             <h2>My Recent Projects</h2>
             <p>We put ideas and thoughts in the form of a unique web projects that inspire you and your customers.</p>
           </div>
-          <div className="project_buttons">
+          <div className="project_buttons" >
             <button className={selectedCategory === 'All' ? 'active' : ''} onClick={() => setselectedCategory('All')}>All</button>
             <button className={selectedCategory === 'Website Development' ? 'active' : ''} onClick={() => setselectedCategory('Website Development')}>Website</button>
             <button className={selectedCategory === 'Game Developement' ? 'active' : ''} onClick={() => setselectedCategory('Game Developement')}>Games</button>
             <button className={selectedCategory === 'App Development' ? 'active' : ''} onClick={() => setselectedCategory('App Development')}>Apps</button>
             <button className={selectedCategory === 'E-Commerce Site' ? 'active' : ''} onClick={() => setselectedCategory('E-Commerce Site')}>E-Commerce</button>
-
           </div>
-          <div className="projects_cards">
+          <div className="projects_cards" >
             {loading ? <div className="flex flex-center wh_50"><Spinner /></div> : (
               filteredProjects.length === 0 ? (<h1>No Project Found</h1>) : (
                 filteredProjects.slice(0, 4).map((pro) => (
-                  <Link href='/' key={pro._id} className="procard">
+                  <Link href='/' key={pro._id} className="procard" data-aos="flip-left">
                     <div className="proimgbox">
                       <img src={pro.images[0]} alt={pro.title} />
                     </div>
@@ -248,22 +287,22 @@ export default function Home() {
       <section className="exstudy">
         <div className="container flex flex-left flex-sb">
           <div className="experience">
-            <div className="experience_title flex gap-1">
+            <div className="experience_title flex gap-1" data-aos="fade-right">
               <LuMedal />
               <h2>My Education</h2>
             </div>
             <div className="exper_cards">
-              <div className="exper_card">
+              <div className="exper_card" data-aos="fade-up">
                 <span>2020-2024</span>
                 <h3>IIIT Sri City</h3>
                 <p>B.Tech in Computer Science</p>
               </div>
-              <div className="exper_card">
+              <div className="exper_card" data-aos="fade-up">
                 <span>2018-2020</span>
                 <h3>Resonance Jr College</h3>
                 <p>Intermediate</p>
               </div>
-              <div className="exper_card">
+              <div className="exper_card" data-aos="fade-up">
                 <span>2017-2018</span>
                 <h3>Abhinav High School</h3>
                 <p>Secondary Board Of Education</p>
@@ -271,22 +310,22 @@ export default function Home() {
             </div>
           </div>
           <div className="education">
-            <div className="experience_title flex gap-1">
+            <div className="experience_title flex gap-1" data-aos="fade-left">
               <PiGraduationCapFill />
               <h2>My Education 2</h2>
             </div>
             <div className="exper_cards">
-              <div className="exper_card">
+              <div className="exper_card" data-aos="fade-up">
                 <span>2020-2024</span>
                 <h3>IIIT Sri City</h3>
                 <p>B.Tech in Computer Science</p>
               </div>
-              <div className="exper_card">
+              <div className="exper_card" data-aos="fade-up">
                 <span>2018-2020</span>
                 <h3>Resonance Jr College</h3>
                 <p>Intermediate</p>
               </div>
-              <div className="exper_card">
+              <div className="exper_card" data-aos="fade-up">
                 <span>2017-2018</span>
                 <h3>Abhinav High School</h3>
                 <p>Secondary Board Of Education</p>
@@ -300,40 +339,40 @@ export default function Home() {
       {/* My Skills */}
       <section className="myskills">
         <div className="container">
-          <div className="myskills_title">
+          <div className="myskills_title" data-aos="fade-up">
             <h2>My Skills</h2>
             <p>We put ideas and thoughts in the form of a unique web projects that inspire you and your customers.</p>
           </div>
           <div className="myskils_cards">
-            <div className="mys_card">
-              <div className="mys_inner">
+            <div className="mys_card" data-aos="fade-right">
+              <div className="mys_inner" >
                 <img src="/img/python.svg" alt="python" />
                 <h3>99%</h3>
               </div>
               <p className="text-center" >Python</p>
             </div>
-            <div className="mys_card">
+            <div className="mys_card" data-aos="fade-right">
               <div className="mys_inner">
                 <img src="/img/firebase.svg" alt="firebase" />
                 <h3>80%</h3>
               </div>
               <p className="text-center" >Firebase</p>
             </div>
-            <div className="mys_card">
+            <div className="mys_card" data-aos="fade-right">
               <div className="mys_inner">
                 <img src="/img/redux.svg" alt="redux" />
                 <h3>70%</h3>
               </div>
               <p className="text-center" >Redux</p>
             </div>
-            <div className="mys_card">
+            <div className="mys_card" data-aos="fade-left">
               <div className="mys_inner">
                 <img src="/img/mongodb.svg" alt="mongodb" />
                 <h3>90%</h3>
               </div>
               <p className="text-center" >Mongo DB</p>
             </div>
-            <div className="mys_card">
+            <div className="mys_card" data-aos="fade-left">
               <div className="mys_inner">
                 <img src="/img/react.svg" alt="react" />
                 <h3>100%</h3>
@@ -347,13 +386,13 @@ export default function Home() {
       {/* Recent Experiences */}
       <section className="recentexperiences">
         <div className="container">
-          <div className="myskills_title">
+          <div className="myskills_title" data-aos="fade-up">
             <h2>Recent Experiences</h2>
             <p>We put ideas and thoughts in the form of a unique web projects that inspire you and your customers.</p>
           </div>
           <div className="recent_experiences">
             {allwork.slice(0, 3).map((experience) => {
-              return <Link href={`/experiences/${experience.slug}`} key={experience._id} className="re_experience">
+              return <Link href={`/experiences/${experience.slug}`} key={experience._id} className="re_experience" data-aos="flip-left">
                 <div className="re_experienceimg">
                   <img src={experience.images[0] || '/img/noimage.png'} alt={experience.title} />
                   <span>{experience.experiencecategory[0]}</span>

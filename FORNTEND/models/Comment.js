@@ -9,10 +9,10 @@ const CommentSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     experience: { type: Schema.Types.ObjectId, ref: 'Experience', required: true},
     parent: { type: Schema.Types.ObjectId, ref: 'Comment' },
-    children: [{ type: Schema.Types.ObjectId, ref: 'Comment' }], // Initialize correctly
-    parentName: {type: String },
+    children: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    parentName: { type: String },
 });
 
-export const Comment = models.Comment || model('comment', CommentSchema);
+export const Comment = models.comment || model('comment', CommentSchema);
 
 export default Comment;

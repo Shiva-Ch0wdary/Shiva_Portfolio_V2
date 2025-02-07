@@ -1,16 +1,14 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-
-// import required modules
 import { FreeMode } from 'swiper/modules';
 import Head from 'next/head';
 import { useState } from 'react';
 import useFetchData from '@/hooks/useFetchData';
 import Spinner from '@/components/Spinner';
 import Link from 'next/link';
+import Experiencesearch from "@/components/Experiencesearch";
+
 
 export default function Experiences() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -19,14 +17,24 @@ export default function Experiences() {
 
     const { alldata, loading } = useFetchData('/api/experiences');
 
+    const [searchInput, setSearchInput] = useState(false);
+
+    const handleSearchOpen = () => {
+        setSearchInput(!searchInput);
+    }
+
+    const handleSearchClose = () => {
+        setSearchInput(false);
+    }
+
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
     const allexperience = alldata.length;
 
-    const filteredExperiences = searchQuery.trim() === '' 
-        ? alldata 
+    const filteredExperiences = searchQuery.trim() === ''
+        ? alldata
         : alldata.filter(experience => experience.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const indexofFirstExperience = (currentPage - 1) * perPage;
@@ -52,15 +60,14 @@ export default function Experiences() {
                     <div className="container">
                         <div className="toptitle">
                             <div className="toptitlecont flex">
-                                <h1>Welcome to <span>Shiva's Experiences</span></h1>
-                                <p>I break down complex user experiences problems to create integrity-focused solutions that connect billions of people.</p>
-                                <div className="subemail">
+                                <h1 data-aos="fade-right">Welcome to <span>Shiva's Experiences</span></h1>
+                                <p data-aos="fade-right">I break down complex user experiences problems to create integrity-focused solutions that connect billions of people.</p>
+                                <div className="subemail" data-aos="fade-up">
                                     <form className="flex">
-                                        <input 
-                                            placeholder='Search here...' 
-                                            type="text" 
-                                            value={searchQuery} 
-                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                        <input
+                                            placeholder='Search here...'
+                                            type="text"
+                                            onClick={handleSearchOpen}
                                         />
                                         <button type="submit">Search</button>
                                     </form>
@@ -71,7 +78,7 @@ export default function Experiences() {
                             <div className="container">
                                 <div className="border">
                                     <div className="featuredposts">
-                                        <div className="fetitle flex">
+                                        <div className="fetitle flex" data-aos="fade-right">
                                             <h3>Featured Posts : </h3>
                                         </div>
                                         <div className="feposts flex">
@@ -86,11 +93,11 @@ export default function Experiences() {
                                                     <>
                                                         {sliderpubdata.slice(0, 6).map((experience) => (
                                                             <SwiperSlide key={experience._id}>
-                                                                <div className="fpost" key={experience._id}>
-                                                                    <Link href={`/experiences/${experience.slug}`}>
+                                                                <div className="fpost" key={experience._id} data-aos="flip-left">
+                                                                    <Link href={`/experiences/${experience.slug}`} >
                                                                         <img src={experience.images[0]} alt={experience.title} />
                                                                     </Link>
-                                                                    <div className="fpostinfo">
+                                                                    <div className="fpostinfo" >
                                                                         <div className="tegs flex">
                                                                             {experience.experiencecategory.map((cat, index) => (
                                                                                 <Link href={`/experience/category/${cat}`} key={index} className='ai'>
@@ -124,15 +131,15 @@ export default function Experiences() {
                     <div className="container">
                         <div className="border"></div>
                         <div className="latestpostsdata">
-                            <div className="fetitle">
+                            <div className="fetitle" data-aos="fade-right">
                                 <h3>Latest Articles :</h3>
                             </div>
-                            <div className="latestposts">
+                            <div className="latestposts" >
                                 {loading ? <Spinner /> : (
                                     <>
                                         {publishedData.map((experience) => (
-                                            <div className="lpost" key={experience._id}>
-                                                <div className="lpostimg">
+                                            <div className="lpost" key={experience._id} data-aos="flip-left">
+                                                <div className="lpostimg" >
                                                     <Link href={`/experiences/${experience.slug}`}>
                                                         <img src={experience.images[0]} alt={experience.title} />
                                                     </Link>
@@ -169,7 +176,7 @@ export default function Experiences() {
                                 {pageNumber
                                     .slice(Math.max(currentPage - 3, 0), Math.min(currentPage + 2, pageNumber.length))
                                     .map(number => (
-                                        <button 
+                                        <button
                                             key={number}
                                             onClick={() => paginate(number)}
                                             className={`${currentPage === number ? 'active' : ''}`}
@@ -183,6 +190,7 @@ export default function Experiences() {
                             </div>
                         )}
                     </div>
+                    {searchInput ? <Experiencesearch cls={handleSearchClose} /> : null}
                 </section>
             </div>
         </>
