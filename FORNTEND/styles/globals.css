@@ -736,6 +736,9 @@ header.sticky {
 }
 
 .hero_img_box img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
     border-radius: 38px;
     transform: rotate(4.29deg);
     position: relative;

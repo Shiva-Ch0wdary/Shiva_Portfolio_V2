@@ -19,8 +19,8 @@ export default function Setting() {
                         <span> /</span> <span>Settings</span>
                     </div>
                 </div>
-                <div className="profilesettings">
-                    <div className="leftprofile_details flex">
+                <div className="profilesettings ">
+                    <div className="leftprofile_details flex flex-col">
                         <img src="/img/coder.png" alt="coder" />
                         <div className="w-100">
                             <div className="flex flex-sb flex-left mt-2">

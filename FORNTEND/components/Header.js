@@ -6,128 +6,228 @@ import { HiMiniBars3BottomRight } from "react-icons/hi2";
 import { IoMoonSharp } from "react-icons/io5";
 import { LuSun, LuSunMoon } from "react-icons/lu";
 
-
 export default function Header() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [isSticky, setIsSticky] = useState(false); // New sticky state
 
-    const [darkMode, setDarkMode] = useState(false);
+  useEffect(() => {
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    setDarkMode(isDarkMode);
+  }, []);
 
-    useEffect(() => {
-        const isDarkMode = localStorage.getItem('darkMode') === 'true';
-        setDarkMode(isDarkMode);
-    }, [])
-
-    useEffect(() => {
-        if (darkMode) {
-            document.body.classList.add('dark');
-            localStorage.setItem('darkMode', true);
-        } else {
-            document.body.classList.remove('dark');
-            localStorage.setItem('darkMode', false);
-        }
-    }, [darkMode]);
-
-
-    const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark');
+      localStorage.setItem('darkMode', true);
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.setItem('darkMode', false);
     }
+  }, [darkMode]);
 
-    const router = useRouter();
-    const [clicked, setClicked] = useState(false);
-    const [activeLink, setActiveLink] = useState('/');
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
-    const handleLinkClick = (link) => {
-        setActiveLink(link);
-        setClicked(false);
-    }
+  const router = useRouter();
+  const [clicked, setClicked] = useState(false);
+  const [activeLink, setActiveLink] = useState('/');
 
-    useEffect(() => {
-        setActiveLink(router.pathname);
-    }, [router.pathname]);
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+    setClicked(false);
+  };
 
-    const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    setActiveLink(router.pathname);
+  }, [router.pathname]);
 
-    const handleMobileOpen = () => {
-        setMobile(!mobile);
-    }
+  const [mobile, setMobile] = useState(false);
 
-    const handleMobileClose = () => {
-        setMobile(false);
-    }
+  const handleMobileOpen = () => {
+    setMobile(!mobile);
+  };
 
-    return <>
-        <header>
-            <nav className="container flex flex-sb">
-                <div className="logo flex gap-2">
-                    <Link href='/'><img src={`/img/${darkMode ? 'white' : 'logo'}.png`} alt="logo" /></Link>
-                    <h2>shivachowdary753@gmail.com</h2>
-                </div>
-                <div className="navlist flex gap-2">
-                    <ul className="flex gap-1">
-                        <li>
-                            <Link href='/' onClick={() => handleLinkClick('/')} className={activeLink === '/' ? 'active' : ''}>Home</Link>
-                        </li>
-                        <li>
-                            <Link href='/projects' onClick={() => handleLinkClick('/projects')} className={activeLink === '/projects' ? 'active' : ''}>Projects</Link>
-                        </li>
-                        <li>
-                            <Link href='/experiences' onClick={() => handleLinkClick('/experiences')} className={activeLink === '/experiences' ? 'active' : ''}>Experiences</Link>
-                        </li>
-                        <li>
-                            <Link href='/gallery' onClick={() => handleLinkClick('/gallery')} className={activeLink === '/gallery' ? 'active' : ''}>Gallery</Link>
-                        </li>
-                        <li>
-                            <Link href='/services' onClick={() => handleLinkClick('/services')} className={activeLink === '/services' ? 'active' : ''}>Services</Link>
-                        </li>
-                        <li>
-                            <Link href='/shop' onClick={() => handleLinkClick('/shop')} className={activeLink === '/shop' ? 'active' : ''}>Shop</Link>
-                        </li>
-                        <li>
-                            <Link href='/contact' onClick={() => handleLinkClick('/contact')} className={activeLink === '/contact' ? 'active' : ''}>Contact</Link>
-                        </li>
-                    </ul>
-                    <div className="darkmodetoggle" onClick={toggleDarkMode}>
+  const handleMobileClose = () => {
+    setMobile(false);
+  };
 
-                        {darkMode ? <IoMoonSharp /> : <LuSun/> }
-                        
-                    </div>
-                    <button><Link href='/contact'>Hire Me!</Link></button>
-                    <div className="mobiletogglesvg" onClick={handleMobileOpen}>
-                        <HiMiniBars3BottomRight />
-                    </div>
-                </div>
-                <div className={mobile ? 'mobilenavlist active' : 'mobilenavlist'}>
-                    <span onClick={handleMobileClose} className={mobile ? 'active' : ''}></span>
-                    <div className="mobilelogo">
-                        <img src="/img/white.png" alt="logo" />
-                        <h2>Shiva Rama Krishna</h2>
-                    </div>
-                    <ul className="flex gap-1 flex-col flex-left mt-3" onClick={handleMobileClose}>
-                        <li>
-                            <Link href='/' onClick={() => handleLinkClick('/')} className={activeLink === '/' ? 'active' : ''}>Home</Link>
-                        </li>
-                        <li>
-                            <Link href='/projects' onClick={() => handleLinkClick('/projects')} className={activeLink === '/projects' ? 'active' : ''}>Projects</Link>
-                        </li>
-                        <li>
-                            <Link href='/experiences' onClick={() => handleLinkClick('/experiences')} className={activeLink === '/experiences' ? 'active' : ''}>Experiences</Link>
-                        </li>
-                        <li>
-                            <Link href='/gallery' onClick={() => handleLinkClick('/gallery')} className={activeLink === '/gallery' ? 'active' : ''}>Gallery</Link>
-                        </li>
-                        <li>
-                            <Link href='/services' onClick={() => handleLinkClick('/services')} className={activeLink === '/services' ? 'active' : ''}>Services</Link>
-                        </li>
-                        <li>
-                            <Link href='/shop' onClick={() => handleLinkClick('/shop')} className={activeLink === '/shop' ? 'active' : ''}>Shop</Link>
-                        </li>
-                        <li>
-                            <Link href='/contact' onClick={() => handleLinkClick('/contact')} className={activeLink === '/contact' ? 'active' : ''}>Contact</Link>
-                        </li>
-                    </ul>
-                    <p>Copyright &copy; 2024 | ShivaChowdary.in</p>
-                </div>
-            </nav>
-        </header>
+  // NEW: Add a scroll listener to toggle the sticky class
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) { // You can adjust the threshold as needed
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <>
+      {/* Apply the "sticky" class when isSticky is true */}
+      <header className={isSticky ? "sticky" : ""}>
+        <nav className="container flex flex-sb">
+          <div className="logo flex gap-2">
+            <Link href="/">
+              <img src={`/img/${darkMode ? 'white' : 'logo'}.png`} alt="logo" />
+            </Link>
+            <h2>Shiva Chowdary</h2>
+          </div>
+          <div className="navlist flex gap-2">
+            <ul className="flex gap-1">
+              <li>
+                <Link
+                  href="/"
+                  onClick={() => handleLinkClick('/')}
+                  className={activeLink === '/' ? 'active' : ''}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/projects"
+                  onClick={() => handleLinkClick('/projects')}
+                  className={activeLink === '/projects' ? 'active' : ''}
+                >
+                  Projects
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/experiences"
+                  onClick={() => handleLinkClick('/experiences')}
+                  className={activeLink === '/experiences' ? 'active' : ''}
+                >
+                  Experiences
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/gallery"
+                  onClick={() => handleLinkClick('/gallery')}
+                  className={activeLink === '/gallery' ? 'active' : ''}
+                >
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services"
+                  onClick={() => handleLinkClick('/services')}
+                  className={activeLink === '/services' ? 'active' : ''}
+                >
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shop"
+                  onClick={() => handleLinkClick('/shop')}
+                  className={activeLink === '/shop' ? 'active' : ''}
+                >
+                  Shop
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  onClick={() => handleLinkClick('/contact')}
+                  className={activeLink === '/contact' ? 'active' : ''}
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+            <div className="darkmodetoggle" onClick={toggleDarkMode}>
+              {darkMode ? <IoMoonSharp /> : <LuSun />}
+            </div>
+            <button>
+              <Link href="/contact">Hire Me!</Link>
+            </button>
+            <div className="mobiletogglesvg" onClick={handleMobileOpen}>
+              <HiMiniBars3BottomRight />
+            </div>
+          </div>
+          <div className={mobile ? "mobilenavlist active" : "mobilenavlist"}>
+            <span onClick={handleMobileClose} className={mobile ? "active" : ""}></span>
+            <div className="mobilelogo">
+              <img src="/img/white.png" alt="logo" />
+              <h2>Shiva Rama Krishna</h2>
+            </div>
+            <ul className="flex gap-1 flex-col flex-left mt-3" onClick={handleMobileClose}>
+              <li>
+                <Link
+                  href="/"
+                  onClick={() => handleLinkClick('/')}
+                  className={activeLink === '/' ? "active" : ""}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/projects"
+                  onClick={() => handleLinkClick('/projects')}
+                  className={activeLink === '/projects' ? "active" : ""}
+                >
+                  Projects
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/experiences"
+                  onClick={() => handleLinkClick('/experiences')}
+                  className={activeLink === '/experiences' ? "active" : ""}
+                >
+                  Experiences
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/gallery"
+                  onClick={() => handleLinkClick('/gallery')}
+                  className={activeLink === '/gallery' ? "active" : ""}
+                >
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services"
+                  onClick={() => handleLinkClick('/services')}
+                  className={activeLink === '/services' ? "active" : ""}
+                >
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shop"
+                  onClick={() => handleLinkClick('/shop')}
+                  className={activeLink === '/shop' ? "active" : ""}
+                >
+                  Shop
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  onClick={() => handleLinkClick('/contact')}
+                  className={activeLink === '/contact' ? "active" : ""}
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+            <p>Copyright &copy; 2024 | ShivaChowdary.in</p>
+          </div>
+        </nav>
+      </header>
     </>
+  );
 }
