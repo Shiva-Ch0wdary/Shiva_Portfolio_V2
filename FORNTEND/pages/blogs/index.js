@@ -7,7 +7,7 @@ import { useState } from 'react';
 import useFetchData from '@/hooks/useFetchData';
 import Spinner from '@/components/Spinner';
 import Link from 'next/link';
-import Experiencesearch from "@/components/Experiencesearch";
+import Experiencesearch from "@/components/Blogsearch";
 
 
 export default function Experiences() {
@@ -15,7 +15,7 @@ export default function Experiences() {
     const [perPage] = useState(7);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const { alldata, loading } = useFetchData('/api/experiences');
+    const { alldata, loading } = useFetchData('/api/blogs');
 
     const [searchInput, setSearchInput] = useState(false);
 
@@ -53,14 +53,14 @@ export default function Experiences() {
     return (
         <>
             <Head>
-                <title>Experiences</title>
+                <title>Blogs</title>
             </Head>
             <div className="experiencepage">
                 <section className="tophero">
                     <div className="container">
                         <div className="toptitle">
                             <div className="toptitlecont flex">
-                                <h1 data-aos="fade-right">Welcome to <span>Shiva's Experiences</span></h1>
+                                <h1 data-aos="fade-right">Welcome to <span>Shiva's Blogs</span></h1>
                                 <p data-aos="fade-right">I break down complex user experiences problems to create integrity-focused solutions that connect billions of people.</p>
                                 <div className="subemail" data-aos="fade-up">
                                     <form className="flex">
@@ -94,7 +94,7 @@ export default function Experiences() {
                                                         {sliderpubdata.slice(0, 6).map((experience) => (
                                                             <SwiperSlide key={experience._id}>
                                                                 <div className="fpost" key={experience._id} data-aos="flip-left">
-                                                                    <Link href={`/experiences/${experience.slug}`} >
+                                                                    <Link href={`/blogs/${experience.slug}`} >
                                                                         <img src={experience.images[0]} alt={experience.title} />
                                                                     </Link>
                                                                     <div className="fpostinfo" >
@@ -106,7 +106,7 @@ export default function Experiences() {
                                                                             ))}
                                                                         </div>
                                                                         <h2>
-                                                                            <Link href={`/experiences/${experience.slug}`}>{experience.title}</Link>
+                                                                            <Link href={`/blogs/${experience.slug}`}>{experience.title}</Link>
                                                                         </h2>
                                                                         <div className="fpostby flex">
                                                                             <img src="/img/coder.jpg" alt="profile" />
@@ -140,7 +140,7 @@ export default function Experiences() {
                                         {publishedData.map((experience) => (
                                             <div className="lpost" key={experience._id} data-aos="flip-left">
                                                 <div className="lpostimg" >
-                                                    <Link href={`/experiences/${experience.slug}`}>
+                                                    <Link href={`/blogs/${experience.slug}`}>
                                                         <img src={experience.images[0]} alt={experience.title} />
                                                     </Link>
                                                     <div className="tegs">
@@ -153,7 +153,7 @@ export default function Experiences() {
                                                 </div>
                                                 <div className="lpostinfo">
                                                     <h3>
-                                                        <Link href={`/experiences/${experience.slug}`}>{experience.title}</Link>
+                                                        <Link href={`/blogs/${experience.slug}`}>{experience.title}</Link>
                                                     </h3>
                                                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
                                                     <h4 className="flex">

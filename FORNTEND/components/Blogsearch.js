@@ -15,7 +15,7 @@ const extractFirstParagraph = (markdown) => {
 
 export default function Experiencesearch(props) {
 
-    const { alldata = [], loading } = useFetchData('/api/experiences');  // Assuming useFetchData returns an object with alldata and loading
+    const { alldata = [], loading } = useFetchData('/api/blogs');  // Assuming useFetchData returns an object with alldata and loading
 
     const [searchResult, setSearchResult] = useState(null);
     const [experiencetitle, setExperiencetitle] = useState('');  // experiencetitle should be initialized as a string
@@ -61,7 +61,7 @@ export default function Experiencesearch(props) {
                     {experiencetitle && (<>
                         {searchResult.length === 0 ? <h3>No Experience Found <span>(please chq your spelling)</span></h3> : <>
                             {searchResult.slice(0, 10).map((experience) => {
-                                return <Link href={`/experiences/${experience.slug}`} key={experience._id} className="sbsfsbox" onClick={props.cls}>
+                                return <Link href={`/blogs/${experience.slug}`} key={experience._id} className="sbsfsbox" onClick={props.cls}>
                                     <h2>{experience.title}</h2>
                                     <p>{extractFirstParagraph(experience.description)}</p>    
                                 </Link>

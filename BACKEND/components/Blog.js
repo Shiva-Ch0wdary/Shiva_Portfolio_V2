@@ -50,11 +50,11 @@ export default function Experience(
         const data = { title, slug, images, description, experiencecategory, tags, status };
 
         if (_id) {
-            await axios.put('/api/experiences', { ...data, _id })
+            await axios.put('/api/blogs', { ...data, _id })
             toast.success('Data updated')
         } else {
-            await axios.post('/api/experiences', data)
-            toast.success('Experience Created')
+            await axios.post('/api/blogs', data)
+            toast.success('Blogs Created')
         }
 
         setRedirect(true);
@@ -85,7 +85,7 @@ export default function Experience(
     }
 
     if (redirect) {
-        router.push('/experiences')
+        router.push('/blogs')
         return null;
     }
 

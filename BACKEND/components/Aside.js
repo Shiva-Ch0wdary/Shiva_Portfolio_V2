@@ -107,18 +107,18 @@ export default function Aside({ asideopen, handleAsideOpen }) {
             >
               <div className="flex gap-1">
                 <MdTravelExplore />
-                <span>Experience</span>
+                <span>Blog</span>
               </div>
               {activeLink === "/experience" && (
                 <ul>
-                  <Link href="/experiences">
-                    <li>All Experience</li>
+                  <Link href="/blogs">
+                    <li>All Blog</li>
                   </Link>
-                  <Link href="/experiences/draftexperience">
-                    <li>Draft Experience</li>
+                  <Link href="/blogs/draftblog">
+                    <li>Draft Blog</li>
                   </Link>
-                  <Link href="/experiences/addexperience">
-                    <li>Add Experience</li>
+                  <Link href="/blogs/addblog">
+                    <li>Add Blog</li>
                   </Link>
                 </ul>
               )}

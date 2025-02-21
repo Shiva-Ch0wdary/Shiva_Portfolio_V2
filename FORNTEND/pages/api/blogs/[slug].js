@@ -1,5 +1,5 @@
 import { mongooseConnect } from '@/lib/mongoose';
-import { Experience } from '@/models/Experience';
+import { Experience } from '@/models/Blog';
 import { Comment } from '@/models/Comment';
 
 export default async function handler(req, res) {
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
             const experience = await Experience.findOne({ slug });
 
             if (!experience) {
-                return res.status(404).json({ message: "Experience Not Found" });
+                return res.status(404).json({ message: "Blog Not Found" });
             }
 
             // Fetch comments and populate parent-child relationships
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
             const experience = await Experience.findOne({ slug });
 
             if (!experience) {
-                return res.status(404).json({ message: "Experience Not Found" });
+                return res.status(404).json({ message: "Blog Not Found" });
             }
 
             const newComment = new Comment({

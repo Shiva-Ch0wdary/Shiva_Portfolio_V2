@@ -1,4 +1,4 @@
-import Experience from "@/components/Experience";
+import Experience from "@/components/Blog";
 import Head from "next/head"
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -19,7 +19,7 @@ export default function EditProduct() {
         if (!id) {
             return;
         } else {
-            axios.get('/api/experiences?id=' + id).then(reponse => {
+            axios.get('/api/blogs?id=' + id).then(reponse => {
                 setProductInfo(reponse.data)
             })
         }
@@ -28,7 +28,7 @@ export default function EditProduct() {
 
     return <>
         <Head>
-            <title>Update Experience</title>
+            <title>Update Blog</title>
         </Head>
 
         <div className="experiencepage">
@@ -38,7 +38,7 @@ export default function EditProduct() {
                     <h3>ADMIN PANEL</h3>
                 </div>
                 <div className="breadcrumb">
-                    <MdTravelExplore /> <span>/</span> <span>Edit Experience</span>
+                    <MdTravelExplore /> <span>/</span> <span>Edit Blog</span>
                 </div>
             </div>
             <div className="mt-3">

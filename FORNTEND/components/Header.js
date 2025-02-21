@@ -99,11 +99,11 @@ export default function Header() {
               </li>
               <li>
                 <Link
-                  href="/experiences"
-                  onClick={() => handleLinkClick('/experiences')}
-                  className={activeLink === '/experiences' ? 'active' : ''}
+                  href="/blogs"
+                  onClick={() => handleLinkClick('/blogs')}
+                  className={activeLink === '/blogs' ? 'active' : ''}
                 >
-                  Experiences
+                  Blogs
                 </Link>
               </li>
               <li>
@@ -180,11 +180,11 @@ export default function Header() {
               </li>
               <li>
                 <Link
-                  href="/experiences"
-                  onClick={() => handleLinkClick('/experiences')}
-                  className={activeLink === '/experiences' ? "active" : ""}
+                  href="/blogs"
+                  onClick={() => handleLinkClick('/blogs')}
+                  className={activeLink === '/blogs' ? "active" : ""}
                 >
-                  Experiences
+                  Blogs
                 </Link>
               </li>
               <li>

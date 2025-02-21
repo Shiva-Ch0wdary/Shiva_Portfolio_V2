@@ -17,25 +17,25 @@ export default function DeleteProduct() {
         if (!id) {
             return;
         } else {
-            axios.get('/api/experiences?id=' + id).then(reponse => {
+            axios.get('/api/blogs?id=' + id).then(reponse => {
                 setProductInfo(reponse.data)
             })
         }
     }, [id]);
 
     function goBack() {
-        router.push('/experiences')
+        router.push('/blogs')
     }
 
     async function deleteExperience() {
-        await axios.delete('/api/experiences?id=' + id)
+        await axios.delete('/api/blogs?id=' + id)
         toast.success('Delete Sucessfully')
         goBack();
     }
 
     return <>
         <Head>
-            <title>Delete Experience</title>
+            <title>Delete Blog</title>
         </Head>
 
         <div className="experiencepage">
@@ -45,7 +45,7 @@ export default function DeleteProduct() {
                     <h3>ADMIN PANEL</h3>
                 </div>
                 <div className="breadcrumb">
-                    <MdTravelExplore /> <span>/</span> <span>Delete Experience</span>
+                    <MdTravelExplore /> <span>/</span> <span>Delete Blog</span>
                 </div>
             </div>
             <div className="deletesec flex flex-center wh_100">

@@ -16,7 +16,7 @@ export default function Category() {
     const [perPage] = useState(7);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const { alldata, loading } = useFetchData(`/api/experiences?experiencecategory=${category}`);
+    const { alldata, loading } = useFetchData(`/api/blogs?experiencecategory=${category}`);
 
     const filteredExperiences = alldata.filter((item) => item.category === item.category).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 20);
 
@@ -44,7 +44,7 @@ export default function Category() {
 
     return <>
         <Head>
-            <title>Experience category page</title>
+            <title>Blog category page</title>
         </Head>
         <div className="experiencecategory">
             <section className="tophero">
@@ -69,12 +69,12 @@ export default function Category() {
                                     {publishedData.map((experience) => (
                                         <div className="lpost" key={experience._id}>
                                             <div className="lpostimg">
-                                                <Link href={`/experiences/${experience.slug}`}>
+                                                <Link href={`/blogs/${experience.slug}`}>
                                                     <img src={experience.images[0]} alt={experience.title} />
                                                 </Link>
                                                 <div className="tegs">
                                                     {experience.experiencecategory.map((cat, index) => (
-                                                        <Link href={`/experience/category/${cat}`} key={index} className='ai'>
+                                                        <Link href={`/blogs/category/${cat}`} key={index} className='ai'>
                                                             <span>{cat}</span>
                                                         </Link>
                                                     ))}
@@ -82,7 +82,7 @@ export default function Category() {
                                             </div>
                                             <div className="lpostinfo">
                                                 <h3>
-                                                    <Link href={`/experiences/${experience.slug}`}>{experience.title}</Link>
+                                                    <Link href={`/blogs/${experience.slug}`}>{experience.title}</Link>
                                                 </h3>
                                                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
                                                 <h4 className="flex">

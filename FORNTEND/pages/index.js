@@ -7,10 +7,10 @@ import { LiaBasketballBallSolid } from "react-icons/lia";
 import { GoArrowUpRight } from "react-icons/go";
 import { useEffect, useState } from "react";
 import Spinner from "@/components/Spinner";
-import Category from "./experiences/category/[category]";
+import Category from "./blogs/category/[category]";
 import { LuMedal } from "react-icons/lu";
 import { PiGraduationCapFill } from "react-icons/pi";
-import experiences from "./experiences";
+import experiences from "./blogs";
 import { FaCalendarDays } from "react-icons/fa6";
 import axios from "axios";
 
@@ -111,7 +111,7 @@ export default function Home() {
       try {
         const [projectResponse, experiencesResponse] = await Promise.all([
           fetch("/api/projects"),
-          fetch("/api/experiences"),
+          fetch("/api/blogs"),
         ]);
         const projectData = await projectResponse.json();
         const experiencesData = await experiencesResponse.json();
@@ -505,7 +505,7 @@ export default function Home() {
       <section className="recentexperiences">
         <div className="container">
           <div className="myskills_title" data-aos="fade-up">
-            <h2>Recent Experiences</h2>
+            <h2>Recent Blogs</h2>
             <p>
               We put ideas and thoughts in the form of unique web projects that
               inspire you and your customers.
@@ -514,7 +514,7 @@ export default function Home() {
           <div className="recent_experiences">
             {allwork.slice(0, 3).map((experience) => (
               <Link
-                href={`/experiences/${experience.slug}`}
+                href={`/blogs/${experience.slug}`}
                 key={experience._id}
                 className="re_experience"
                 data-aos="flip-left"

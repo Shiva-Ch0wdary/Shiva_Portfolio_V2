@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import experiences from ".";
 import Spinner from "@/components/Spinner";
 import { FiSearch } from "react-icons/fi";
-import Experiencesearch from "@/components/Experiencesearch";
+import Experiencesearch from "@/components/Blogsearch";
 
 
 const ExperiencePage = () => {
@@ -28,7 +28,7 @@ const ExperiencePage = () => {
 
     const { slug } = router.query;
 
-    const { alldata } = useFetchData('/api/experiences');
+    const { alldata } = useFetchData('/api/blogs');
 
     const [searchInput, setSearchInput] = useState(false);
 
@@ -61,11 +61,11 @@ const ExperiencePage = () => {
         const fetchExperienceData = async () => {
             if (slug) {
                 try {
-                    const response = await axios.get(`/api/experiences/${slug}`);
+                    const response = await axios.get(`/api/blogs/${slug}`);
                     setExperienceData(response.data);
                     setLoading(false);
                 } catch (error) {
-                    setError('Failed to fetch Experinces Data. Please try again later.')
+                    setError('Failed to fetch Blog Data. Please try again later.')
                     setLoading(false);
                 }
             }
@@ -78,7 +78,7 @@ const ExperiencePage = () => {
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`/api/experiences/${slug}`, newComment);
+            const response = await axios.post(`/api/blogs/${slug}`, newComment);
             const addedComment = response.data;
 
             setExperienceData(prevData => {
@@ -207,7 +207,7 @@ const ExperiencePage = () => {
         return new Intl.DateTimeFormat('en-Us', options).format(date);
     }
 
-    const experienceUrl = `http://localhost:3000/experiences/${slug}`;
+    const experienceUrl = `http://localhost:3000/blogs/${slug}`;
 
     const handleCopyUrl = (Url) => {
         navigator.clipboard.writeText(Url);
@@ -460,15 +460,15 @@ const ExperiencePage = () => {
                                     <div className="rightslugcategory">
                                         <h2>CATEGORIES</h2>
                                         <ul>
-                                            <Link href='/experiences/category/Next Js'><li>Next Js <span>({alldata.filter(ab => ab.experiencecategory[0] === 'Next Js').length})</span></li></Link>
-                                            <Link href='/experiences/category/Software developer'><li>Software Developer<span>({alldata.filter(ab => ab.experiencecategory[0] === 'Software developer').length})</span></li></Link>
-                                            <Link href='/experiences/category/Unity Developer'><li>Unity Developer<span>({alldata.filter(ab => ab.experiencecategory[0] === 'Unity Developer').length})</span></li></Link>
+                                            <Link href='/blogs/category/Next Js'><li>Next Js <span>({alldata.filter(ab => ab.experiencecategory[0] === 'Next Js').length})</span></li></Link>
+                                            <Link href='/blogs/category/Software developer'><li>Software Developer<span>({alldata.filter(ab => ab.experiencecategory[0] === 'Software developer').length})</span></li></Link>
+                                            <Link href='/blogs/category/Unity Developer'><li>Unity Developer<span>({alldata.filter(ab => ab.experiencecategory[0] === 'Unity Developer').length})</span></li></Link>
                                         </ul>
                                     </div>
                                     <div className="rightrecentpost">
                                         <h2>RECENT POST</h2>
                                         {alldata.slice(0, 3).map((experience) => {
-                                            return <Link key={experience._id} href={`/experiences/${experience.slug}`} className="rightrecentp">
+                                            return <Link key={experience._id} href={`/blogs/${experience.slug}`} className="rightrecentp">
                                                 <img src={experience.images[0]} alt="" />
                                                 <div>
                                                     <h3>{experience.title}</h3>

@@ -1,5 +1,5 @@
 import { mongooseConnect } from "@/lib/mongoose";
-import { Experience } from "@/models/Experience";
+import { Experience } from "@/models/Blog";
 
 export default async function handle(req, res) {
 
