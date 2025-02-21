@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { IoHome } from "react-icons/io5";
-import { MdWorkHistory } from "react-icons/md";
+import { MdSchool, MdWorkHistory } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdTravelExplore } from "react-icons/md";
 import { IoIosContacts } from "react-icons/io";
@@ -68,6 +68,30 @@ export default function Aside({ asideopen, handleAsideOpen }) {
                   </Link>
                   <Link href="/projects/addproject">
                     <li>Add Projects</li>
+                  </Link>
+                </ul>
+              )}
+            </li>
+
+            <li
+              className={
+                activeLink === "/education"
+                  ? "navactive flex-col flex-left"
+                  : "flex-col flex-left"
+              }
+              onClick={() => handleLinkClick("/education")}
+            >
+              <div className="flex gap-1">
+                <MdSchool />
+                <span>Education</span>
+              </div>
+              {activeLink === "/education" && (
+                <ul>
+                  <Link href="/education">
+                    <li>All Educations</li>
+                  </Link>
+                  <Link href="/education/add">
+                    <li>Add Education</li>
                   </Link>
                 </ul>
               )}

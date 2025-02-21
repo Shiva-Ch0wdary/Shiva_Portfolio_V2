@@ -17,4 +17,4 @@ const ContactSchema = new Schema({
 // Ensure the model is not re-registered
 const Contact = models.Contact || model('Contact', ContactSchema);
 
-export { Contact };  // ✅ Use named export
+export { Contact };  
