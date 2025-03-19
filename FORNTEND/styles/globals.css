@@ -772,11 +772,9 @@ header.sticky {
     0% {
         transform: translate(-50%, -50%) scale(1);
     }
-
     50% {
         transform: translate(-50%, -50%) scale(1.05);
     }
-
     100% {
         transform: translate(-50%, -50%) scale(1);
     }
@@ -791,15 +789,24 @@ header.sticky {
     display: inline-block;
 }
 
+/* New scroll animation keyframes */
+@keyframes scrollText {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
 
-
+/* Combine stroke and scroll animations for the text */
 .hero .intro_text svg text.animate-stroke {
-    animation: stroke 4s;
+    animation: stroke 4s, scrollText 10s linear infinite;
     opacity: 0.7;
 }
 
 .dark .hero .intro_text svg text.animate-stroke {
-    animation: stroke 4s;
+    animation: stroke 4s, scrollText 10s linear infinite;
     opacity: 0.3;
 }
 
@@ -814,7 +821,6 @@ header.sticky {
         stroke-dasharray: 0 50%;
         stroke-width: 1;
     }
-
     100% {
         stroke-dashoffset: 100%;
         stroke-dasharray: 100% 0;

@@ -166,17 +166,18 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="intro_text">
-          <svg viewBox="0 0 1320 300">
+          <svg viewBox="0 0 1320 300" className="scrolling-svg">
             <text
               x="50%"
               y="50%"
               textAnchor="middle"
               className="animate-stroke"
             >
-              Hi
+              Hello  World! Hello  World!
             </text>
           </svg>
         </div>
+
         <div className="container">
           <div className="flex w-100">
             <div className="heroinfoleft">
@@ -341,7 +342,9 @@ export default function Home() {
               Website
             </button>
             <button
-              className={selectedCategory === "Game Developement" ? "active" : ""}
+              className={
+                selectedCategory === "Game Developement" ? "active" : ""
+              }
               onClick={() => setselectedCategory("Game Developement")}
             >
               Games
@@ -353,9 +356,7 @@ export default function Home() {
               Apps
             </button>
             <button
-              className={
-                selectedCategory === "E-Commerce Site" ? "active" : ""
-              }
+              className={selectedCategory === "E-Commerce Site" ? "active" : ""}
               onClick={() => setselectedCategory("E-Commerce Site")}
             >
               E-Commerce
@@ -395,10 +396,7 @@ export default function Home() {
         <div className="container flex flex-left flex-sb">
           {/* First Column – Education */}
           <div className="experience">
-            <div
-              className="experience_title flex gap-1"
-              data-aos="fade-right"
-            >
+            <div className="experience_title flex gap-1" data-aos="fade-right">
               <LuMedal />
               <h2>My Education</h2>
             </div>
@@ -407,11 +405,7 @@ export default function Home() {
                 <Spinner />
               ) : (
                 educationColumn1.map((item) => (
-                  <div
-                    key={item._id}
-                    className="exper_card"
-                    data-aos="fade-up"
-                  >
+                  <div key={item._id} className="exper_card" data-aos="fade-up">
                     <span>{item.period}</span>
                     <h3>{item.institution}</h3>
                     <p>{item.degree}</p>
@@ -423,10 +417,7 @@ export default function Home() {
 
           {/* Second Column – Education2 */}
           <div className="education">
-            <div
-              className="experience_title flex gap-1"
-              data-aos="fade-left"
-            >
+            <div className="experience_title flex gap-1" data-aos="fade-left">
               <PiGraduationCapFill />
               <h2>My Experiences</h2>
             </div>
@@ -435,11 +426,7 @@ export default function Home() {
                 <Spinner />
               ) : (
                 educationColumn2.map((item) => (
-                  <div
-                    key={item._id}
-                    className="exper_card"
-                    data-aos="fade-up"
-                  >
+                  <div key={item._id} className="exper_card" data-aos="fade-up">
                     <span>{item.period}</span>
                     <h3>{item.institution}</h3>
                     <p>{item.degree}</p>
@@ -530,9 +517,7 @@ export default function Home() {
                   <div className="re_topdate flex gap-1">
                     <div className="res_date">
                       <FaCalendarDays />{" "}
-                      <span>
-                        {formaDate(new Date(experience.createdAt))}
-                      </span>
+                      <span>{formaDate(new Date(experience.createdAt))}</span>
                     </div>
                   </div>
                   <h2>{experience.title}</h2>
