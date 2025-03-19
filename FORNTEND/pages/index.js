@@ -356,7 +356,9 @@ export default function Home() {
               Apps
             </button>
             <button
-              className={selectedCategory === "E-Commerce Site" ? "active" : ""}
+              className={
+                selectedCategory === "E-Commerce Site" ? "active" : ""
+              }
               onClick={() => setselectedCategory("E-Commerce Site")}
             >
               E-Commerce
@@ -488,7 +490,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Recent Experiences */}
+      {/* Recent Blogs Section */}
       <section className="recentexperiences">
         <div className="container">
           <div className="myskills_title" data-aos="fade-up">
@@ -498,32 +500,61 @@ export default function Home() {
               inspire you and your customers.
             </p>
           </div>
-          <div className="recent_experiences">
-            {allwork.slice(0, 3).map((experience) => (
-              <Link
-                href={`/blogs/${experience.slug}`}
-                key={experience._id}
-                className="re_experience"
-                data-aos="flip-left"
-              >
-                <div className="re_experienceimg">
-                  <img
-                    src={experience.images[0] || "/img/noimage.png"}
-                    alt={experience.title}
-                  />
-                  <span>{experience.experiencecategory[0]}</span>
-                </div>
-                <div className="re_experienceinfo">
-                  <div className="re_topdate flex gap-1">
-                    <div className="res_date">
-                      <FaCalendarDays />{" "}
-                      <span>{formaDate(new Date(experience.createdAt))}</span>
-                    </div>
+          {/* Marquee container for continuous horizontal scroll */}
+          <div className="marquee">
+            <div className="marquee__inner">
+              {allwork.map((experience) => (
+                <Link
+                  href={`/blogs/${experience.slug}`}
+                  key={experience._id}
+                  className="re_experience"
+                  data-aos="flip-left"
+                >
+                  <div className="re_experienceimg">
+                    <img
+                      src={experience.images[0] || "/img/noimage.png"}
+                      alt={experience.title}
+                    />
+                    <span>{experience.experiencecategory[0]}</span>
                   </div>
-                  <h2>{experience.title}</h2>
-                </div>
-              </Link>
-            ))}
+                  <div className="re_experienceinfo">
+                    <div className="re_topdate flex gap-1">
+                      <div className="res_date">
+                        <FaCalendarDays />{" "}
+                        <span>{formaDate(new Date(experience.createdAt))}</span>
+                      </div>
+                    </div>
+                    <h2>{experience.title}</h2>
+                  </div>
+                </Link>
+              ))}
+              {/* Duplicate items for continuous loop */}
+              {allwork.map((experience) => (
+                <Link
+                  href={`/blogs/${experience.slug}`}
+                  key={`dup-${experience._id}`}
+                  className="re_experience"
+                  data-aos="flip-left"
+                >
+                  <div className="re_experienceimg">
+                    <img
+                      src={experience.images[0] || "/img/noimage.png"}
+                      alt={experience.title}
+                    />
+                    <span>{experience.experiencecategory[0]}</span>
+                  </div>
+                  <div className="re_experienceinfo">
+                    <div className="re_topdate flex gap-1">
+                      <div className="res_date">
+                        <FaCalendarDays />{" "}
+                        <span>{formaDate(new Date(experience.createdAt))}</span>
+                      </div>
+                    </div>
+                    <h2>{experience.title}</h2>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
