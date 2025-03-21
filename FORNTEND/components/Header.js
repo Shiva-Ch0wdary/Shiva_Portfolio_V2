@@ -147,94 +147,45 @@ export default function Header() {
               <input
                 id="input"
                 type="checkbox"
-                // Invert the value here so the UI reflects the intended state
                 checked={!darkMode}
                 onChange={toggleDarkMode}
               />
               <div className="slider round">
                 <div className="sun-moon">
-                  <svg
-                    id="moon-dot-1"
-                    className="moon-dot"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="moon-dot-1" className="moon-dot" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="moon-dot-2"
-                    className="moon-dot"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="moon-dot-2" className="moon-dot" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="moon-dot-3"
-                    className="moon-dot"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="moon-dot-3" className="moon-dot" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="light-ray-1"
-                    className="light-ray"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="light-ray-1" className="light-ray" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="light-ray-2"
-                    className="light-ray"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="light-ray-2" className="light-ray" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="light-ray-3"
-                    className="light-ray"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="light-ray-3" className="light-ray" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="cloud-1"
-                    className="cloud-dark"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="cloud-1" className="cloud-dark" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="cloud-2"
-                    className="cloud-dark"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="cloud-2" className="cloud-dark" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="cloud-3"
-                    className="cloud-dark"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="cloud-3" className="cloud-dark" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="cloud-4"
-                    className="cloud-light"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="cloud-4" className="cloud-light" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="cloud-5"
-                    className="cloud-light"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="cloud-5" className="cloud-light" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
-                  <svg
-                    id="cloud-6"
-                    className="cloud-light"
-                    viewBox="0 0 100 100"
-                  >
+                  <svg id="cloud-6" className="cloud-light" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="50"></circle>
                   </svg>
                 </div>
@@ -262,7 +213,9 @@ export default function Header() {
               <HiMiniBars3BottomRight />
             </div>
           </div>
-          <div className={mobile ? "mobilenavlist active" : "mobilenavlist"}>
+          <div
+            className={mobile ? "mobilenavlist active" : "mobilenavlist"}
+          >
             <span
               onClick={handleMobileClose}
               className={mobile ? "active" : ""}
@@ -271,9 +224,11 @@ export default function Header() {
               <img src="/img/white.png" alt="logo" />
               <h2>Shiva Rama Krishna</h2>
             </div>
+            {/* Only the navigation links container is scrollable */}
             <ul
               className="flex gap-1 flex-col flex-left mt-3"
               onClick={handleMobileClose}
+              style={{ overflowY: "auto", maxHeight: "calc(100vh - 150px)" }}
             >
               <li>
                 <Link
