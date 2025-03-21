@@ -75,29 +75,23 @@ export default function Home() {
     (item) => item.section === "education2"
   );
 
-  // Services data
-  const services = [
-    {
-      title: "Web Development",
-      description:
-        "I am very good in web development offering services, I offer reliable web development services to generate the most remarkable results which your business need.",
-    },
-    {
-      title: "Mobile Development",
-      description:
-        "Experienced mobile developer offering innovative solutions. Proficient in creating high-performance, user-centric mobile apps. Expertise in iOS, Android, and cross-platform development.",
-    },
-    {
-      title: "Digital Marketing(SEO)",
-      description:
-        "My digital marketing services will take your business to the next level, we offer remarkable digital marketing strategies that drives traffic to your website, your business, and improves your brand awareness to potential customers.",
-    },
-    {
-      title: "Content Creator",
-      description:
-        "Passionate photographer and videographer capturing moments with creativity. Transforming visions into visual stories. Expert in visual storytelling, skilled in both photography and videography to deliver captivating content.",
-    },
-  ];
+  // Fetch Services Data from backend
+  const [servicesData, setServicesData] = useState([]);
+  const [servicesLoading, setServicesLoading] = useState(true);
+
+  useEffect(() => {
+    setServicesLoading(true);
+    axios
+      .get("/api/services")
+      .then((response) => {
+        setServicesData(response.data);
+        setServicesLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching services data:", error);
+        setServicesLoading(false);
+      });
+  }, []);
 
   // Fetch Projects and Experiences Data
   const [projectsLoading, setProjectsLoading] = useState(true);
@@ -293,25 +287,31 @@ export default function Home() {
             </p>
           </div>
           <div className="services_menu" data-aos="fade-up">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className={`services_item ${
-                  activeIndex === index ? "sactive" : ""
-                }`}
-                onMouseOver={() => handleHover(index)}
-                onMouseOut={handleMouseOut}
-              >
-                <div className="left_s_box">
-                  <span>0{index + 1}</span>
-                  <h3>{service.title}</h3>
+            {servicesLoading ? (
+              <Spinner />
+            ) : servicesData.length === 0 ? (
+              <p>No services available.</p>
+            ) : (
+              servicesData.map((service, index) => (
+                <div
+                  key={service._id}
+                  className={`services_item ${
+                    activeIndex === index ? "sactive" : ""
+                  }`}
+                  onMouseOver={() => handleHover(index)}
+                  onMouseOut={handleMouseOut}
+                >
+                  <div className="left_s_box">
+                    <span>0{index + 1}</span>
+                    <h3>{service.title}</h3>
+                  </div>
+                  <div className="right_s_box">
+                    <p>{service.description}</p>
+                  </div>
+                  <GoArrowUpRight />
                 </div>
-                <div className="right_s_box">
-                  <p>{service.description}</p>
-                </div>
-                <GoArrowUpRight />
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </section>
