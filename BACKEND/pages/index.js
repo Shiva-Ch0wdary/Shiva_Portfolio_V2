@@ -33,7 +33,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/experiences');
+        const response = await fetch('/api/blogs');
         const responseproject = await fetch('/api/projects');
         const responseShop = await fetch('/api/shops');
         const responseGallery = await fetch('/api/photos');
