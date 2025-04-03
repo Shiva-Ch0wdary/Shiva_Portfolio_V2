@@ -13,6 +13,7 @@ import { PiGraduationCapFill } from "react-icons/pi";
 import experiences from "./blogs";
 import { FaCalendarDays } from "react-icons/fa6";
 import axios from "axios";
+import { useMemo } from "react";
 
 export default function Home() {
   // For hover effect on services
@@ -72,7 +73,7 @@ export default function Home() {
     (item) => item.section === "education"
   );
   const educationColumn2 = educationData.filter(
-    (item) => item.section === "education2"
+    (item) => item.section === "experience"
   );
 
   // Fetch Services Data from backend
@@ -148,6 +149,35 @@ export default function Home() {
     return new Intl.DateTimeFormat("en-US", options).format(date);
   };
 
+  const totalExperienceYears = useMemo(() => {
+    try {
+      let totalMonths = 0;
+
+      educationData
+        .filter((item) => item.section === "experience" && item.period)
+        .forEach((item) => {
+          const parts = item.period.split(" - ");
+          if (parts.length !== 2) return;
+
+          const start = new Date(parts[0].trim());
+          const endRaw = parts[1].trim().toLowerCase();
+          const end = endRaw.includes("present")
+            ? new Date()
+            : new Date(parts[1].trim());
+
+          const months =
+            (end.getFullYear() - start.getFullYear()) * 12 +
+            (end.getMonth() - start.getMonth());
+          totalMonths += months;
+        });
+
+      return (totalMonths / 12).toFixed(1);
+    } catch (e) {
+      console.error("Experience calculation error:", e);
+      return "1"; // Fallback
+    }
+  }, [educationData]);
+
   return (
     <>
       <Head>
@@ -167,7 +197,7 @@ export default function Home() {
               textAnchor="middle"
               className="animate-stroke"
             >
-              Hello  World! Hello  World!
+              Hello World! Hello World!
             </text>
           </svg>
         </div>
@@ -249,13 +279,13 @@ export default function Home() {
           </div>
           <div className="funfect_area flex flex-sb">
             <div className="funfect_item" data-aos="fade-right">
-              <h3>1+</h3>
+              <h3>{totalExperienceYears}+</h3>
               <h4>
                 Years Of <br /> Experience
               </h4>
             </div>
             <div className="funfect_item" data-aos="fade-right">
-              <h3>25+</h3>
+              <h3>{alldata.filter((p) => p.status === "publish").length}+</h3>
               <h4>
                 Projects <br /> Completed
               </h4>
@@ -267,9 +297,9 @@ export default function Home() {
               </h4>
             </div>
             <div className="funfect_item" data-aos="fade-left">
-              <h3>1</h3>
+              <h3>{allwork.filter((p) => p.status === "publish").length}+</h3>
               <h4>
-                OpenSource <br /> Library
+                Blog <br /> Posts
               </h4>
             </div>
           </div>
@@ -356,9 +386,7 @@ export default function Home() {
               Apps
             </button>
             <button
-              className={
-                selectedCategory === "E-Commerce Site" ? "active" : ""
-              }
+              className={selectedCategory === "E-Commerce Site" ? "active" : ""}
               onClick={() => setselectedCategory("E-Commerce Site")}
             >
               E-Commerce
@@ -374,7 +402,7 @@ export default function Home() {
             ) : (
               filteredProjects.slice(0, 4).map((pro) => (
                 <Link
-                  href="/"
+                  href={`/projects/${pro.slug}`}
                   key={pro._id}
                   className="procard"
                   data-aos="flip-left"
@@ -450,41 +478,94 @@ export default function Home() {
               inspire you and your customers.
             </p>
           </div>
-          <div className="myskils_cards">
-            <div className="mys_card" data-aos="fade-right">
-              <div className="mys_inner">
-                <img src="/img/python.svg" alt="python" />
-                <h3>99%</h3>
-              </div>
-              <p className="text-center">Python</p>
-            </div>
-            <div className="mys_card" data-aos="fade-right">
-              <div className="mys_inner">
-                <img src="/img/firebase.svg" alt="firebase" />
-                <h3>80%</h3>
-              </div>
-              <p className="text-center">Firebase</p>
-            </div>
-            <div className="mys_card" data-aos="fade-right">
-              <div className="mys_inner">
-                <img src="/img/redux.svg" alt="redux" />
-                <h3>70%</h3>
-              </div>
-              <p className="text-center">Redux</p>
-            </div>
-            <div className="mys_card" data-aos="fade-left">
-              <div className="mys_inner">
-                <img src="/img/mongodb.svg" alt="mongodb" />
-                <h3>90%</h3>
-              </div>
-              <p className="text-center">Mongo DB</p>
-            </div>
-            <div className="mys_card" data-aos="fade-left">
-              <div className="mys_inner">
-                <img src="/img/react.svg" alt="react" />
-                <h3>100%</h3>
-              </div>
-              <p className="text-center">React</p>
+
+          <div className="myskills_marquee">
+            <div className="myskills_inner">
+              {[...Array(2)].flatMap((_, i) =>
+                [
+                  {
+                    src: "/img/python.svg",
+                    label: "Python",
+                    percent: "99%",
+                  },
+                  {
+                    src: "/img/firebase.svg",
+                    label: "Firebase",
+                    percent: "80%",
+                  },
+                  {
+                    src: "/img/redux.svg",
+                    label: "Redux",
+                    percent: "70%",
+                  },
+                  {
+                    src: "/img/C++.svg",
+                    label: "C++",
+                    percent: "100%",
+                  },
+                  {
+                    src: "/img/mongodb.svg",
+                    label: "Mongo DB",
+                    percent: "90%",
+                  },
+                  {
+                    src: "/img/react.svg",
+                    label: "React",
+                    percent: "100%",
+                  },
+                  {
+                    src: "/img/unity.svg",
+                    label: "Unity",
+                    percent: "100%",
+                  },
+                  {
+                    src: "/img/c-sharp2.svg",
+                    label: "C#",
+                    percent: "100%",
+                  },
+                  {
+                    src: "/img/javascript.svg",
+                    label: "JavaScript",
+                    percent: "100%",
+                  },
+                  {
+                    src: "/img/git.svg",
+                    label: "Git/GitHub",
+                    percent: "100%",
+                  },
+                  {
+                    src: "/img/mysql.svg",
+                    label: "MySQL",
+                    percent: "100%",
+                  },
+                  {
+                    src: "/img/nodejs.svg",
+                    label: "NodeJs",
+                    percent: "100%",
+                  },
+                  {
+                    src: "/img/docker.svg",
+                    label: "Docker",
+                    percent: "100%",
+                  },
+                  {
+                    src: "/img/C.svg",
+                    label: "C",
+                    percent: "100%",
+                  },
+                ].map((skill, index) => (
+                  <div
+                    className="mys_card"
+                    key={`${skill.label}-${i}-${index}`}
+                  >
+                    <div className="mys_inner">
+                      <img src={skill.src} alt={skill.label} />
+                      <h3>{skill.percent}</h3>
+                    </div>
+                    <p className="text-center">{skill.label}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>

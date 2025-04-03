@@ -5433,4 +5433,30 @@ header.sticky {
     }
   }
   
+  .myskills_marquee {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  
+  .myskills_inner {
+    display: flex;
+    gap: 2rem;
+    animation: scrollSkills 20s linear infinite;
+    width: fit-content;
+  }
+  
+  @keyframes scrollSkills {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .mys_card {
+    min-width: 180px; /* Adjust based on your card size */
+    flex-shrink: 0;
+  }
   

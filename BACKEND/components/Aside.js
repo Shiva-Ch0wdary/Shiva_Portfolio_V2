@@ -38,6 +38,7 @@ export default function Aside({ asideopen, handleAsideOpen }) {
     return (
       <>
         <aside className={asideopen ? "asideleft active" : "asideleft"}>
+        <div className="aside-content">
           <ul>
             <Link href="/">
               <li className="navactive">
@@ -219,6 +220,7 @@ export default function Aside({ asideopen, handleAsideOpen }) {
               </li>
             </Link>
           </ul>
+          </div>
           <button onClick={handleLogout} className="logoutbtn">
             Logout
           </button>

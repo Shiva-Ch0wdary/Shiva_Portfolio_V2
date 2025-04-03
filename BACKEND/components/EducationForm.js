@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function EducationForm({ existingEducation }) {
   // Initialize state with default values.
@@ -9,6 +11,8 @@ export default function EducationForm({ existingEducation }) {
   const [period, setPeriod] = useState("");
   const [institution, setInstitution] = useState("");
   const [degree, setDegree] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const router = useRouter();
 
   // When existingEducation is provided (or changes), update the state.
@@ -19,22 +23,34 @@ export default function EducationForm({ existingEducation }) {
       setPeriod(existingEducation.period || "");
       setInstitution(existingEducation.institution || "");
       setDegree(existingEducation.degree || "");
+
+      const [startRaw, endRaw] =
+        existingEducation.period?.split("-").map((p) => p.trim()) || [];
+
+      if (startRaw) setStartDate(new Date(startRaw));
+      if (endRaw) setEndDate(new Date(endRaw));
     }
   }, [existingEducation]);
 
   async function handleSubmit(ev) {
     ev.preventDefault();
-    const data = { section, period, institution, degree };
+
+    const formattedPeriod = `${startDate?.toISOString().split("T")[0]} - ${
+      endDate?.toISOString().split("T")[0]
+    }`;
+    const data = {
+      section,
+      period: formattedPeriod,
+      institution,
+      degree,
+    };
 
     try {
-      // Use either _id or id from the existingEducation data.
       const educationId = existingEducation?._id || existingEducation?.id;
       if (educationId) {
-        // Update the existing entry.
         await axios.put("/api/education", { id: educationId, ...data });
         toast.success("Education entry updated");
       } else {
-        // In edit mode, this branch should not be reached.
         await axios.post("/api/education", data);
         toast.success("Education entry added");
       }
@@ -56,23 +72,40 @@ export default function EducationForm({ existingEducation }) {
           onChange={(e) => setSection(e.target.value)}
         >
           <option value="education">Education</option>
-          <option value="education2">Experiences</option>
+          <option value="experience">Experiences</option>
         </select>
       </div>
-      
-      {/* Period Field */}
+
+      {/* Start Date Picker */}
       <div className="w-100 flex flex-col flex-left mb-2">
-        <label htmlFor="period">Period</label>
-        <input
-          type="text"
-          id="period"
-          placeholder="e.g., 2020-2024"
-          value={period}
-          onChange={(e) => setPeriod(e.target.value)}
+        <label>Start Date</label>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          dateFormat="yyyy-MM-dd"
+          placeholderText="Select start date"
           required
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
         />
       </div>
-      
+
+      {/* End Date Picker */}
+      <div className="w-100 flex flex-col flex-left mb-2">
+        <label>End Date</label>
+        <DatePicker
+          selected={endDate}
+          onChange={(date) => setEndDate(date)}
+          dateFormat="yyyy-MM-dd"
+          placeholderText="Select end date"
+          required
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+        />
+      </div>
+
       {/* Institution Field */}
       <div className="w-100 flex flex-col flex-left mb-2">
         <label htmlFor="institution">Institution</label>
@@ -85,7 +118,7 @@ export default function EducationForm({ existingEducation }) {
           required
         />
       </div>
-      
+
       {/* Degree Field */}
       <div className="w-100 flex flex-col flex-left mb-2">
         <label htmlFor="degree">Degree / Course</label>
@@ -98,7 +131,7 @@ export default function EducationForm({ existingEducation }) {
           required
         />
       </div>
-      
+
       {/* Save Button */}
       <div className="w-100 mb-1">
         <button type="submit" className="w-100 addwebbtn flex-center">
