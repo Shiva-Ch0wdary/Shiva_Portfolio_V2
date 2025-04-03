@@ -4,6 +4,7 @@ import { GoScreenFull } from "react-icons/go";
 import { useState } from "react";
 import LoginLayout from "./LoginLayout";
 import { useSession } from "next-auth/react"
+import Link from "next/link";
 
 
 export default function Header({ handleAsideOpen }) {
@@ -40,10 +41,14 @@ export default function Header({ handleAsideOpen }) {
                     {isFullscreen ? <BiExitFullscreen /> : <GoScreenFull />}
                 </div>
                 <div className="notification">
+                    <Link href="/contacts"> 
                     <img src="/img/notification.png" alt="notification" />
+                    </Link>
                 </div>
                 <div className="profilenav">
+                    <Link href="/setting">
                     <img src="/img/user.png" alt="user" />
+                    </Link>
                 </div>
             </div>
         </header>

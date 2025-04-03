@@ -1,10 +1,12 @@
 import Head from 'next/head';
 import EducationForm from '@/components/EducationForm';
 import { GrGallery } from 'react-icons/gr';
+import LoginLayout from "@/components/LoginLayout";
 
 export default function AddEducation() {
   return (
     <>
+    <LoginLayout>
       <Head>
         <title>Add Education Entry</title>
       </Head>
@@ -22,6 +24,7 @@ export default function AddEducation() {
           <EducationForm />
         </div>
       </div>
+      </LoginLayout>
     </>
   );
 }
