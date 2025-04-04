@@ -15,6 +15,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
 
     if (router.isReady) {
       setLoading(false);
+
+      // ✅ Default route redirection
+      if (router.pathname === "/") {
+        router.replace("/auth/signin"); // Change this to your desired default route
+      }
     }
 
     router.events.on("routeChangeStart", handleStart);
@@ -26,7 +31,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       router.events.off("routeChangeComplete", handleComplete);
       router.events.off("routeChangeError", handleComplete);
     };
-  }, [router.isReady]);
+  }, [router.isReady, router.pathname]); // ✅ include router.pathname
 
   const [asideOpen, setAsideOpen] = useState(false);
 
