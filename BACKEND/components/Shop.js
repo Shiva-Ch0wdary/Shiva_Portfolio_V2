@@ -213,27 +213,6 @@ export default function Shop(
                 />
             </div>
 
-            <div className="w-100 flex flex-col flex-left mb-2">
-                <label htmlFor="tags">Tags</label>
-                <select onChange={(e) => settags(Array.from(e.target.selectedOptions, option => option.value))} value={tags}
-                    name="tags" id="tags" multiple>
-
-                    <option value="Node js">Node Js</option>
-                    <option value="React js">React Js</option>
-                    <option value="Software developer">Software developer</option>
-                    <option value="Java">Java</option>
-                    <option value="Python">Python</option>
-                    <option value="Database">Database</option>
-                    <option value="Flutter Dev">Flutter Dev</option>
-                    <option value="Deployment">Deployment</option>
-                    <option value="HTML CSS">HTML CSS</option>
-                    <option value="Next Js">Next Js</option>
-                    <option value="Unity Developer">Unity Developer</option>
-                    <option value="C Sharp">C Sharp</option>
-                    <option value="Mongo DB">Mongo DB</option>
-                    <option value="C">C</option>
-                </select>
-            </div>
 
             <div className="w-100 flex flex-col flex-left mb-2">
                 <label htmlFor="status">Status</label>

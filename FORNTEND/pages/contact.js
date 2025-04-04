@@ -161,8 +161,8 @@ export default function Contact() {
                                     {[
                                         'Website Development',
                                         'App Development',
-                                        'Design System',
-                                        'Website Migration',
+                                        'AI Powered Solutions',
+                                        'SEO Optimization',
                                         'E-commerce Site',
                                         'Game Development',
                                     ].map((projectOptions) => (

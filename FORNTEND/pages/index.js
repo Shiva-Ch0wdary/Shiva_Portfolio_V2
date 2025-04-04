@@ -221,8 +221,7 @@ export default function Home() {
                 <img src="/img/me.jpg" alt="profile" />
               </div>
               <div className="lead" data-aos="fade-up">
-                I break down complex user experiences problems to create
-                integrity focused solutions that connect billions of people.
+              Designing and developing solutions that spark engagement, solve problems, and elevate user experiences.
               </div>
               <div className="hero_btn_box" data-aos="fade-up">
                 <Link href="/img/resume.pdf" download className="download_cv">
@@ -312,8 +311,7 @@ export default function Home() {
           <div className="services_titles" data-aos="fade-up">
             <h2>My Quality Services</h2>
             <p>
-              We put ideas and thoughts in the form of unique web projects that
-              inspire you and your customers.
+            We transform your ideas into powerful digital experiences. Every solution is crafted with precision and creativity to drive growth, inspire users, and exceed expectations.
             </p>
           </div>
           <div className="services_menu" data-aos="fade-up">
@@ -352,8 +350,7 @@ export default function Home() {
           <div className="project_titles" data-aos="fade-up">
             <h2>My Recent Projects</h2>
             <p>
-              We put ideas and thoughts in the form of unique web projects that
-              inspire you and your customers.
+            Turning concepts into impactful projects that not only engage users but also create lasting value for your business.
             </p>
           </div>
           <div className="project_buttons">
@@ -474,8 +471,7 @@ export default function Home() {
           <div className="myskills_title" data-aos="fade-up">
             <h2>My Skills</h2>
             <p>
-              We put ideas and thoughts in the form of unique web projects that
-              inspire you and your customers.
+            I combine technical excellence with creative problem-solving to build robust solutions. My skill set is tailored to meet the evolving demands of modern digital projects.
             </p>
           </div>
 
@@ -577,8 +573,7 @@ export default function Home() {
           <div className="myskills_title" data-aos="fade-up">
             <h2>Recent Blogs</h2>
             <p>
-              We put ideas and thoughts in the form of unique web projects that
-              inspire you and your customers.
+            Sharing insights, experiences, and tutorials from my journey in tech, game development, and innovative digital solutions to inspire and educate others.
             </p>
           </div>
           {/* Marquee container for continuous horizontal scroll */}

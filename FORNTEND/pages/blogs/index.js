@@ -71,8 +71,7 @@ export default function Experiences() {
                   Welcome to <span>Shiva's Blogs</span>
                 </h1>
                 <p data-aos="fade-right">
-                  I break down complex user experiences problems to create
-                  integrity-focused solutions that connect billions of people.
+                Sharing insights, experiences, and tutorials from my journey in tech, game development, and innovative digital solutions to inspire and educate others.
                 </p>
                 <div className="subemail" data-aos="fade-up">
                   <form className="flex">

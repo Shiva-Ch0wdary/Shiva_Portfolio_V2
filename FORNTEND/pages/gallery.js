@@ -37,7 +37,7 @@ export default function gallery() {
                 <div className="container">
                     <div className="gbtmtitles text-center" data-aos="fade-up">
                         <h3><span>01//</span>OUR PORTFOLIO</h3>
-                        <h2>Shiva Capture <span>All of your</span> <br /> beautiful memories</h2>
+                        <h2>Capturing <span>All of your</span> <br /> beautiful memories</h2>
                     </div>
                     <div className="gallery_image_grid" >
                         {loading ? <Spinner /> : <>

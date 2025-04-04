@@ -39,7 +39,7 @@ export default function projects() {
                 <div className="container">
                     <div className="project_titles" data-aos="fade-down">
                         <h2>My Recent Works</h2>
-                        <p>We Put your ideas and thoughts in the form of unique web projects that inspires you and your customers.</p>
+                        <p>Turning concepts into impactful web projects that not only engage users but also create lasting value for your business.</p>
                     </div>
 
                     <div className="projects_buttons" data-aos="fade-right">
