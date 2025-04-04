@@ -2,20 +2,20 @@ import Head from "next/head";
 import { Bar } from 'react-chartjs-2';
 import Loading from "@/components/Loading";
 import { IoHome } from "react-icons/io5";
-import { Chart as Chartjs, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, plugins } from 'chart.js';
+import { Chart as Chartjs, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { useEffect, useState } from "react";
 import LoginLayout from "@/components/LoginLayout";
 
-
 export default function Home() {
-
   Chartjs.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
   const [experiencesData, setExperiencesData] = useState([]);
-  const [ProjectsData, setProjectsData] = useState([]);
+  const [projectsData, setProjectsData] = useState([]);
   const [photosData, setPhotosData] = useState([]);
   const [shopData, setShopData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
 
   const options = {
     responsive: true,
@@ -25,61 +25,83 @@ export default function Home() {
       },
       title: {
         display: true,
-        text: 'Experience Created Monthly by year'
-      }
-    }
-  }
+        text: 'Experience Created Monthly by year',
+      },
+    },
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/blogs');
-        const responseproject = await fetch('/api/projects');
-        const responseShop = await fetch('/api/shops');
-        const responseGallery = await fetch('/api/photos');
+        const [blogsRes, projectsRes, shopsRes, photosRes] = await Promise.all([
+          fetch(`${baseUrl}/api/blogs`),
+          fetch(`${baseUrl}/api/projects`),
+          fetch(`${baseUrl}/api/shops`),
+          fetch(`${baseUrl}/api/photos`),
+        ]);
 
-        const data = await response.json();
-        const dataProject = await responseproject.json();
-        const dataShop = await responseShop.json();
-        const dataPhotos = await responseGallery.json();
+        if (!blogsRes.ok || !projectsRes.ok || !shopsRes.ok || !photosRes.ok) {
+          throw new Error('One or more API requests failed');
+        }
 
-        setExperiencesData(data);
-        setProjectsData(dataProject);
-        setShopData(dataShop);
-        setPhotosData(dataPhotos);
-        setLoading(false);
+        const data = await blogsRes.json();
+        const dataProject = await projectsRes.json();
+        const dataShop = await shopsRes.json();
+        const dataPhotos = await photosRes.json();
+
+        setExperiencesData(data || []);
+        setProjectsData(dataProject || []);
+        setShopData(dataShop || []);
+        setPhotosData(dataPhotos || []);
       } catch (error) {
+        console.error('Fetch data failed:', error);
+        setExperiencesData([]);
+        setProjectsData([]);
+        setShopData([]);
+        setPhotosData([]);
+      } finally {
         setLoading(false);
       }
-    }
+    };
+
     fetchData();
-  }, [])
+  }, [baseUrl]);
 
-  const monthlyData = experiencesData.filter(dat => dat.status === "publish").reduce((acc, experience) => {
-    const year = new Date(experience.createdAt).getFullYear();
-    const month = new Date(experience.createdAt).getMonth();
-    acc[year] = acc[year] || Array(12).fill(0);
-    acc[year][month]++;
-    return acc;
-  }, {});
+  const monthlyData = experiencesData
+    .filter((dat) => dat.status === "publish")
+    .reduce((acc, experience) => {
+      const year = new Date(experience.createdAt).getFullYear();
+      const month = new Date(experience.createdAt).getMonth();
+      acc[year] = acc[year] || Array(12).fill(0);
+      acc[year][month]++;
+      return acc;
+    }, {});
 
-  const currentYear = new Date().getFullYear();
   const years = Object.keys(monthlyData);
   const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  const datasets = years.map(year => ({
+  const datasets = years.map((year) => ({
     label: `${year}`,
     data: monthlyData[year] || Array(12).fill(0),
-    backgroundColor: `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.5)`
+    backgroundColor: `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.5)`,
   }));
 
-  const data = {
+  const chartData = {
     labels,
-    datasets
+    datasets,
+  };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col flex-center wh_100">
+        <Loading />
+        <h1 className="mt-1">Loading...</h1>
+      </div>
+    );
   }
 
   return (
-      <LoginLayout>
+    <LoginLayout>
       <>
         <Head>
           <title>Portfolio Backend</title>
@@ -101,15 +123,15 @@ export default function Home() {
           <div className="topfourcards flex flex-sb">
             <div className="four_card">
               <h3>Experiences</h3>
-              <span>{experiencesData.filter(dat => dat.status === 'publish').length}</span>
+              <span>{experiencesData.filter((dat) => dat.status === 'publish').length}</span>
             </div>
             <div className="four_card">
               <h3>Projects</h3>
-              <span>{ProjectsData.filter(dat => dat.status === 'publish').length}</span>
+              <span>{projectsData.filter((dat) => dat.status === 'publish').length}</span>
             </div>
             <div className="four_card">
               <h3>Shops</h3>
-              <span>{shopData.filter(dat => dat.status === 'publish').length}</span>
+              <span>{shopData.filter((dat) => dat.status === 'publish').length}</span>
             </div>
             <div className="four_card">
               <h3>Gallery Photos</h3>
@@ -129,9 +151,12 @@ export default function Home() {
                   <li className="semi-small-dot"></li>
                   <li className="small-dot"></li>
                 </ul>
-                <h3 className="text-right">{experiencesData.filter(dat => dat.status === 'publish').length} / 365 <br /> <span>Total Publishes</span></h3>
+                <h3 className="text-right">
+                  {experiencesData.filter((dat) => dat.status === 'publish').length} / 365 <br />
+                  <span>Total Publishes</span>
+                </h3>
               </div>
-              <Bar data={data} options={options} />
+              <Bar data={chartData} options={options} />
             </div>
 
             <div className="right_salescont">
@@ -157,33 +182,20 @@ export default function Home() {
                   <tbody>
                     <tr>
                       <td>Next Js</td>
-                      <td>{experiencesData.filter(dat => dat.experiencecategory[0] === "Next js").length}</td>
+                      <td>{experiencesData.filter((dat) => dat.experiencecategory[0] === "Next js").length}</td>
                     </tr>
                     <tr>
                       <td>React Js</td>
-                      <td>{experiencesData.filter(dat => dat.experiencecategory[0] === "React js").length}</td>
+                      <td>{experiencesData.filter((dat) => dat.experiencecategory[0] === "React js").length}</td>
                     </tr>
                     <tr>
                       <td>Software developer</td>
-                      <td>{experiencesData.filter(dat => dat.experiencecategory[0] === "Software developer").length}</td>
+                      <td>{experiencesData.filter((dat) => dat.experiencecategory[0] === "Software developer").length}</td>
                     </tr>
                     <tr>
                       <td>Java</td>
-                      <td>{experiencesData.filter(dat => dat.experiencecategory[0] === "Java").length}</td>
+                      <td>{experiencesData.filter((dat) => dat.experiencecategory[0] === "Java").length}</td>
                     </tr>
-                    {/* <tr>
-                    <td>Python</td>
-                    <td>{experiencesData.filter(dat => dat.experiencecategory[0] === "Python").length}</td>
-                  </tr>
-                  <tr>
-                    <td>Database</td>
-                    <td>{experiencesData.filter(dat => dat.experiencecategory[0] === "Database").length}</td>
-                  </tr>
-                  <tr>
-                    <td>Flutter Dev</td>
-                    <td>{experiencesData.filter(dat => dat.experiencecategory[0] === "Flutter Dev").length}</td>
-                  </tr> */}
-
                   </tbody>
                 </table>
               </div>
@@ -191,7 +203,6 @@ export default function Home() {
           </div>
         </div>
       </>
-     </LoginLayout>
+    </LoginLayout>
   );
-
 }
