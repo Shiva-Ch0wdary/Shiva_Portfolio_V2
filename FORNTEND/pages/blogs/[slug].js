@@ -53,7 +53,10 @@ const ExperiencePage = () => {
   const handleSearchOpen = () => setSearchInput(!searchInput);
   const handleSearchClose = () => setSearchInput(false);
 
-  const [experienceData, setExperienceData] = useState({ experience: {}, comments: [] });
+  const [experienceData, setExperienceData] = useState({
+    experience: {},
+    comments: [],
+  });
   const [newComment, setNewComment] = useState({
     name: "",
     email: "",
@@ -111,9 +114,15 @@ const ExperiencePage = () => {
               return comment;
             });
           };
-          return { ...prevData, comments: updateNestedComments(prevData.comments) };
+          return {
+            ...prevData,
+            comments: updateNestedComments(prevData.comments),
+          };
         } else {
-          return { ...prevData, comments: [addedComment, ...prevData.comments] };
+          return {
+            ...prevData,
+            comments: [addedComment, ...prevData.comments],
+          };
         }
       });
 
@@ -147,7 +156,12 @@ const ExperiencePage = () => {
   };
 
   const handleRemovereply = () => {
-    setNewComment({ ...newComment, parent: null, parentName: null, maincomment: true });
+    setNewComment({
+      ...newComment,
+      parent: null,
+      parentName: null,
+      maincomment: true,
+    });
   };
 
   const handleCopyUrl = (Url) => {
@@ -236,7 +250,11 @@ const ExperiencePage = () => {
           )}
         </div>
       ));
-    return <div className="experiencecomments-container">{renderNestedComments(comments)}</div>;
+    return (
+      <div className="experiencecomments-container">
+        {renderNestedComments(comments)}
+      </div>
+    );
   };
 
   if (loading) {
@@ -391,23 +409,37 @@ const ExperiencePage = () => {
                     {newComment.parentName ? (
                       <h2>
                         Leave a reply to{" "}
-                        <span className="perentname">{newComment.parentName}</span>{" "}
-                        <button onClick={handleRemovereply} className="removereplybtn">
+                        <span className="perentname">
+                          {newComment.parentName}
+                        </span>{" "}
+                        <button
+                          onClick={handleRemovereply}
+                          className="removereplybtn"
+                        >
                           Remove Reply
                         </button>
                       </h2>
                     ) : (
                       <h2>Leave a reply</h2>
                     )}
-                    <p>Your email address will not be published. Required fields are marked *</p>
-                    <form className="leaveareplyform" onSubmit={handleCommentSubmit}>
+                    <p>
+                      Your email address will not be published. Required fields
+                      are marked *
+                    </p>
+                    <form
+                      className="leaveareplyform"
+                      onSubmit={handleCommentSubmit}
+                    >
                       <div className="nameemailcomment">
                         <input
                           type="text"
                           placeholder="Enter Name"
                           value={newComment.name}
                           onChange={(e) =>
-                            setNewComment({ ...newComment, name: e.target.value })
+                            setNewComment({
+                              ...newComment,
+                              name: e.target.value,
+                            })
                           }
                         />
                         <input
@@ -415,7 +447,10 @@ const ExperiencePage = () => {
                           placeholder="Enter Email"
                           value={newComment.email}
                           onChange={(e) =>
-                            setNewComment({ ...newComment, email: e.target.value })
+                            setNewComment({
+                              ...newComment,
+                              email: e.target.value,
+                            })
                           }
                         />
                       </div>
@@ -424,7 +459,10 @@ const ExperiencePage = () => {
                         placeholder="Enter Title"
                         value={newComment.title}
                         onChange={(e) =>
-                          setNewComment({ ...newComment, title: e.target.value })
+                          setNewComment({
+                            ...newComment,
+                            title: e.target.value,
+                          })
                         }
                       />
                       <textarea
@@ -433,7 +471,10 @@ const ExperiencePage = () => {
                         id="textcomments"
                         value={newComment.contentpera}
                         onChange={(e) =>
-                          setNewComment({ ...newComment, contentpera: e.target.value })
+                          setNewComment({
+                            ...newComment,
+                            contentpera: e.target.value,
+                          })
                         }
                       ></textarea>
                       <div className="flex gap-2">
@@ -445,7 +486,11 @@ const ExperiencePage = () => {
                 </div>
                 <div className="rightsitedetails">
                   <div className="rightslugsearchbar">
-                    <input onClick={handleSearchOpen} type="text" placeholder="Search..." />
+                    <input
+                      onClick={handleSearchOpen}
+                      type="text"
+                      placeholder="Search..."
+                    />
                     <button>
                       <FiSearch />
                     </button>
@@ -454,7 +499,10 @@ const ExperiencePage = () => {
                     <h2>CATEGORIES</h2>
                     <ul>
                       {topCategories.map((cat) => (
-                        <Link key={cat} href={`/blogs/category/${encodeURIComponent(cat)}`}>
+                        <Link
+                          key={cat}
+                          href={`/blogs/category/${encodeURIComponent(cat)}`}
+                        >
                           <li>
                             {cat} <span>({categoryCounts[cat]})</span>
                           </li>
@@ -465,13 +513,20 @@ const ExperiencePage = () => {
                   <div className="rightrecentpost">
                     <h2>RECENT POST</h2>
                     {recentPosts.map((experience) => (
-                      <Link key={experience._id} href={`/blogs/${experience.slug}`} className="rightrecentp">
-                        <img src={experience.images[0]} alt={experience.title} />
+                      <Link
+                        key={experience._id}
+                        href={`/blogs/${experience.slug}`}
+                        className="rightrecentp"
+                      >
+                        <img
+                          src={experience.images[0]}
+                          alt={experience.title}
+                        />
                         <div>
                           <h3>{experience.title}</h3>
                           <h4 className="mt-1">
-                            {experience.tags.map((cat) => (
-                              <span key={cat}>{cat}</span>
+                            {experience.tags.slice(0, 3).map((cat) => (
+                              <span key={cat}>{cat}</span>                           
                             ))}
                           </h4>
                         </div>

@@ -365,17 +365,17 @@ export default function Home() {
             </button>
             <button
               className={
-                selectedCategory === "Website Development" ? "active" : ""
+                selectedCategory === "Web Development" ? "active" : ""
               }
-              onClick={() => setselectedCategory("Website Development")}
+              onClick={() => setselectedCategory("Web Development")}
             >
               Website
             </button>
             <button
               className={
-                selectedCategory === "Game Developement" ? "active" : ""
+                selectedCategory === "Game Development" ? "active" : ""
               }
-              onClick={() => setselectedCategory("Game Developement")}
+              onClick={() => setselectedCategory("Game Development")}
             >
               Games
             </button>
@@ -386,8 +386,8 @@ export default function Home() {
               Apps
             </button>
             <button
-              className={selectedCategory === "E-Commerce Site" ? "active" : ""}
-              onClick={() => setselectedCategory("E-Commerce Site")}
+              className={selectedCategory === "E-Commerce" ? "active" : ""}
+              onClick={() => setselectedCategory("E-Commerce")}
             >
               E-Commerce
             </button>

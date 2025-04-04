@@ -43,14 +43,10 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         </div>
       ) : (
         <>
-        <SessionProvider session={session}>
           <ParentComponent appOpen={asideOpen} appAsideOpen={AsideClickOpen} />
-          </SessionProvider>
           <main>
             <div className={asideOpen ? "container" : "container active"}>
-            <SessionProvider session={session}>
               <Component {...pageProps} />
-              </SessionProvider>
             </div>
           </main>
         </>

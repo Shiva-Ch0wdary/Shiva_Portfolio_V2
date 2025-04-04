@@ -55,7 +55,7 @@ export default function projects() {
                     <div className="projects_cards">
                         {loading ? <div className="flex flex-center wh_50"><Spinner /></div> : (
                             filteredProjects.length === 0 ? (<h1>No Project Found</h1>) : (
-                                filteredProjects.slice(0, 4).map((pro) => (
+                                filteredProjects.map((pro) => (
                                     <Link href={`/projects/${pro.slug}`} key={pro._id} className="procard" data-aos="flip-left">
                                         <div className="proimgbox">
                                             <img src={pro.images[0]} alt={pro.title} />

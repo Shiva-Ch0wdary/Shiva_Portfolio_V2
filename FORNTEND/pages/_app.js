@@ -7,24 +7,14 @@ import AOS from "aos";
 import 'aos/dist/aos.css'
 
 export default function App({ Component, pageProps }) {
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const handleComplate = () => {
-      setIsLoading(false);
-    }
-
-    setTimeout(handleComplate, 3000);
-
-    return () => {
-      clearTimeout(handleComplate);
-    }
-
-  }, [])
+    const timer = setTimeout(() => setIsLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
-
     AOS.init({
       disable: false,
       startEvent: 'DOMContentLoaded',
@@ -33,7 +23,6 @@ export default function App({ Component, pageProps }) {
       disableMutationObserver: false,
       debounceDelay: 50,
       throttleDelay: 99,
-
       offset: 100,
       delay: 0,
       duration: 900,
@@ -41,17 +30,19 @@ export default function App({ Component, pageProps }) {
       once: false,
       mirror: false,
       anchorPlacement: 'top-bottom'
-    })
-  }, [])
+    });
+  }, []);
 
-  return <>
-    <Preloader isLoading={isLoading} />
-    <Header />
-    {!isLoading && (
-      <main id="site-wrapper">
-        <Component {...pageProps} />
-      </main>
-    )}
-    <Footer />
-  </>
+  return (
+    <>
+      <Preloader isLoading={isLoading} />
+      <Header />
+      {!isLoading && (
+        <main id="site-wrapper">
+          <Component {...pageProps} />
+        </main>
+      )}
+      <Footer />
+    </>
+  );
 }
